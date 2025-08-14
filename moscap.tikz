@@ -1,0 +1,65 @@
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+    layer/.style={draw, thick, minimum width=4cm, minimum height=#1},
+    label/.style={midway, align=center, font=\scriptsize}
+]
+
+% Heights
+\def\subH{1.2}   % Substrate height
+\def\oxH{0.15}   % Oxide height
+\def\polyH{0.3}  % Poly height
+\def\metalH{0.15}% Metal height
+
+% --- Draw layers ---
+\node[layer=\subH cm, fill=gray!30] (sub) at (0,0) {};
+\node[layer=\metalH cm, fill=yellow!30, anchor=north] (metal) at (sub.south) {};
+\node[layer=\oxH cm, fill=blue!20, anchor=south] (ox) at (sub.north) {};
+\node[layer=\polyH cm, fill=green!20, anchor=south] (gate) at (ox.north) {};
+
+% --- External labels (staggered arrows) ---
+\draw[->, thick] ([xshift=2cm,yshift=0.15cm]gate.center) -- (gate.east)
+    node[right, font=\scriptsize] {n+ Poly-Si (\qty{400}{\nano\meter})};
+
+\draw[->, thick] ([xshift=2cm,yshift=-0.05cm]ox.center) -- (ox.east)
+    node[right, font=\scriptsize] {SiO\textsubscript{2} (\qty{35}{\nano\meter})};
+
+\draw[->, thick] ([xshift=2cm,yshift=-0.15cm]sub.center) -- (sub.east)
+    node[right, font=\scriptsize] {p-Si ($\langle 100 \rangle$)};
+
+\draw[->, thick] ([xshift=2cm,yshift=0.05cm]metal.center) -- (metal.east)
+    node[right, font=\scriptsize] {Al contact (\qty{400}{\nano\meter})};
+
+% --- Dimensions ---
+% Gate stack
+\draw[<->] ([xshift=-2.2cm]gate.north) -- ([xshift=-2.2cm]ox.south) 
+    node[label, left] {Gate stack};
+
+% Total structure
+\draw[<->] ([xshift=2.2cm]sub.south) -- ([xshift=2.2cm]gate.north) 
+    node[label, right] {Total structure};
+
+% Substrate thickness
+\draw[<->] ([xshift=-1.6cm]metal.south) -- ([xshift=-1.6cm]sub.north)
+    node[label, left] {\qty{500}{\micro\meter}};
+
+% --- Contact points ---
+\draw[thick, red] (gate.north) ++(-1,0.2) -- ++(0,0.25) 
+    node[above, font=\scriptsize] {Gate contact};
+\draw[thick, red] (metal.south) ++(1,-0.1) -- ++(0,-0.25) 
+    node[below, font=\scriptsize] {Substrate contact};
+
+% --- Legend ---
+\node[anchor=north] at (0, -0.9) {%
+    \scriptsize
+    \setlength{\tabcolsep}{2pt}%
+    \renewcommand{\arraystretch}{0.8}%
+    \begin{tabular}{@{}l@{}}
+        \cellcolor{green!20}{\rule{5mm}{2mm}} Poly-Si gate \\
+        \cellcolor{blue!20}{\rule{5mm}{2mm}} SiO\textsubscript{2} dielectric \\
+        \cellcolor{gray!30}{\rule{5mm}{2mm}} p-Si substrate \\
+        \cellcolor{yellow!30}{\rule{5mm}{2mm}} Al back contact
+    \end{tabular}%
+};
+
+\end{tikzpicture}%
+}

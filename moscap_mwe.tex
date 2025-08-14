@@ -1,0 +1,127 @@
+\documentclass{article}
+\input{template.tex}
+
+% Override default metadata
+\renewcommand{\processflowtitle}{Minimal MOS Capacitor Process}
+\renewcommand{\revision}{Rev 0.1}
+\renewcommand{\contactemail}{jephin@dtu.dk}
+\renewcommand{\contactname}{Jeppe Hinrichs}
+\renewcommand{\contactphone}{Not applicable}
+\renewcommand{\labmanagergroup}{DkCCC}
+\renewcommand{\batchname}{TBD}
+\renewcommand{\datecreation}{2025-08-15}
+\renewcommand{\daterevision}{2025-08-15}
+
+\begin{document}
+
+% First page with title block
+\titleblock
+
+% ==== DOCUMENT CONTENT ====
+\section*{Process Overview}
+
+Bare-minimum fabrication flow for MOS capacitor structure. \\
+
+\subsection*{Key Specifications}
+\begin{itemize}
+    \item Gate oxide: \qty{35}{\nano\meter} thermal SiO\textsubscript{2}
+    \item Gate electrode: \qty{400}{\nano\meter} n+ polysilicon
+    \item Backside contact: \qty{400}{\nano\meter} aluminum
+\end{itemize}
+
+\subsection*{Critical Safety}
+\begin{itemize}
+    \item \textbf{HF handling:} Double nitrile gloves + face shield
+    \item \textbf{Furnace:} Thermal gloves for >\qty{800}{\degreeCelsius} operations
+\end{itemize}
+
+% === MATERIAL SPECIFICATIONS ===
+\section{Starting Material}
+\begin{tblr}{
+    colspec = {lcc},
+    row{1} = {font=\bfseries},
+    row{2} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Substrate & Specification & Qty \\
+\midrule
+Silicon & p-type <100>, 6", 1-10 \Omega\cdot cm & 5 \\
+\bottomrule
+\end{tblr}
+
+% === LAYER SPECIFICATIONS ===
+\section{Critical Layers}
+\begin{tblr}{
+    colspec = {lcc},
+    row{1} = {font=\bfseries},
+    row{2-4} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Layer & Material & Thickness \\
+\midrule
+Gate oxide & Thermal SiO\textsubscript{2} & \qty{35}{\nano\meter} \\
+Gate electrode & n+ Poly-Si & \qty{400}{\nano\meter} \\
+Back contact & Al & \qty{400}{\nano\meter} \\
+\bottomrule
+\end{tblr}
+
+% === PROCESS FLOW ===
+\section{Core Process Flow}
+\begin{tblr}{
+    colspec = {cX[3]lX[2]},
+    row{1} = {font=\bfseries},
+    row{2-5} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Step & Process & Equipment & Key Parameters \\
+\midrule
+1.1 & RCA clean & Wet bench & SC1+SC2 @ \qty{75}{\degreeCelsius} \\
+2.1 & SiO\textsubscript{2} growth & Furnace & \qty{1000}{\degreeCelsius}, 40min \\
+3.1 & Poly-Si deposition & LPCVD & \qty{620}{\degreeCelsius}, 2hr \\
+4.1 & Gate patterning & Aligner + Etch & Mask: capacitor \\
+5.1 & Back Al deposition & E-beam & \qty{400}{\nano\meter} \\
+5.2 & Contact anneal & RTP & \qty{450}{\degreeCelsius}, \qty{30}{\minute} \\
+\bottomrule
+\end{tblr}
+
+% === TROUBLESHOOTING ===
+\section{Critical Checks}
+\begin{tblr}{
+    colspec = {lX[3]},
+    row{1} = {font=\bfseries},
+    row{2-4} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Step & QC Verification \\
+\midrule
+2.1 & Oxide thickness: \qty{35}{\nano\meter} ± \qty{1}{\nano\meter} \\
+4.1 & Gate CD: ± \qty{0.5}{\micro\meter} \\
+5.2 & Contact R < $1~\Omega / \square$ \\
+\bottomrule
+\end{tblr}
+
+% === FIGURES ===
+\section{Required Figures}
+\begin{tblr}{
+    colspec = {ccX[3]},
+    row{1} = {font=\bfseries},
+    row{2-3} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+ID & Step & Description \\
+\midrule
+1 & 2.1 &
+\begin{minipage}{\linewidth}
+    \centering
+    {\resizebox{\linewidth}{!}{\input{moscap.tikz}}}\\[2pt]
+    Cross-section
+\end{minipage} \\
+2 & 5.2 & \begin{minipage}{\linewidth}
+    \centering
+    %{\resizebox{\linewidth}{!}{\includesvg{moscap_mwe_td.svg}}}\\[2pt]
+    Process flow
+\end{minipage} \\
+\bottomrule
+\end{tblr}
+
+\end{document}
