@@ -1,0 +1,159 @@
+\documentclass{article}
+\input{template.tex}
+
+% Override default metadata
+\renewcommand{\processflowtitle}{MOS Capacitor Process Flow}
+\renewcommand{\revision}{Rev 1.1}
+\renewcommand{\contactemail}{jephin@dtu.dk}
+\renewcommand{\contactname}{Jeppe Hinrichs}
+\renewcommand{\contactphone}{Not applicable}
+\renewcommand{\labmanagergroup}{DkCCC}
+\renewcommand{\batchname}{TBD}
+\renewcommand{\datecreation}{2025-01-05}
+\renewcommand{\daterevision}{2025-08-14}
+
+\begin{document}
+
+% First page with title block
+\titleblock
+
+% ==== DOCUMENT CONTENT ====
+\section*{Process Overview}
+Fabrication of high-uniformity MOS capacitors as baseline for future FET-sensor integration. \\
+Key specifications:
+\begin{itemize}
+    \item Gate oxide thickness: \qty{35}{\nano\meter} $\pm$ \qty{1}{\nano\meter} (3$\sigma$)
+    \item Capacitance density: > \qty[per-mode=symbol]{9.8}{\nano\farad\per\centi\meter\squared}
+    \item Backside compatibility for membrane-based sensors
+\end{itemize}
+
+\subsection*{Safety Protocols}
+\begin{itemize}
+    \item \textbf{BHF handling:} Double nitrile gloves + face shield
+    \item \textbf{BHF exposure:} Flush with water for 15 minutes, seek medical attention
+    \item \textbf{DRIE:} Confirm RF match <\qty{5}{\percent} reflection before ignition
+    \item \textbf{Anneals:} Thermal gloves for >\qty{800}{\degreeCelsius} operations
+\end{itemize}
+
+% === MATERIAL SPECIFICATIONS ===
+\section{Starting Material Specifications}
+\begin{tblr}{
+    colspec = {X[1.2,l] X[0.8,c] X[0.6,c] X[1.5,l] X[1,l] X[0.7,c] X[1,l] X[1,l] X[0.5,c]},
+    row{1} = {font=\bfseries},
+    row{2} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Substrate & Orient. & Size & Doping/type & Resistivity & Polish & Thickness & Purpose & Qty \\
+\midrule
+Silicon & <100> & 6" & p (Boron) & 1-10 \Omega\cdot cm & DSP & \qty{500}{\micro\meter} $\pm$\qty{20}{\micro\meter} & Device & 5 \\
+\bottomrule
+\end{tblr}
+
+% === LAYER SPECIFICATIONS ===
+\section{Layer Specifications}
+\begin{tblr}{
+    colspec = {X[1.2,l] X[1,l] X[0.9,c] X[0.9,c] X[1.2,l] X[1.5,l] X[2,l]},
+    row{1} = {font=\bfseries},
+    row{2-7} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Layer & Material & Thickness & CD Tolerance & Process & Control Method & Notes \\
+\midrule
+Substrate & p-Si (100) & -- & -- & -- & 4-point probe & Record orientation/resistivity \\
+Backside oxide & SiO\textsubscript{2} & Native & -- & BHF dip & Ellipsometry & Remove pre-metallization \\
+Backside contact & Al & \qty{400}{\nano\meter} $\pm$ \qty{80}{\nano\meter} & -- & E-beam & Stylus profilometer & Add alloy anneal at \qty{450}{\degreeCelsius} over 30min N\textsubscript{2} \\
+\SetCell{fg=red} Gate dielectric & Dry SiO\textsubscript{2} & \qty{35}{\nano\meter}$\pm$ \qty{1}{\nano\meter} & -- & Thermal oxidation & 49-pt ellipsometry map & Target $C_\mathrm{ox}=\qty[per-mode=symbol]{98}{\nano\farad\per\centi\meter\squared}$ \\
+Gate electrode & n+ Poly-Si & \qty{400}{\nano\meter} $\pm$ \qty{40}{\nano\meter} & $\pm$ \qty{0.5}{\micro\meter} & LPCVD & Reflectometry + CD-SEM & FUTURE FET: Optimize PH\textsubscript{3} doping \\
+\SetCell{fg=blue} Capacitor pattern & Photoresist & \qty{1.5}{\micro\meter} & $\pm$\qty{0.2}{\micro\meter} & Lithography & Optical inspection & \SetCell{fg=blue} SENSOR: Modify for biosensing \\
+\bottomrule
+\end{tblr}
+
+% === PROCESS FLOW ===
+\section{Process Flow}
+\subsection{Stage 1: Wafer Preparation}
+\begin{tblr}{
+    colspec = {X[0.5,c] X[2.5,l] X[1.8,l] X[3,l] X[2,l]},
+    row{1} = {font=\bfseries},
+    row{2-3} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Step & Purpose & Equipment & Parameters & QC Check \\
+\midrule
+1.1 & Resistivity check & 4-point probe & Measure center/edge & 1-10 \Omega\cdot cm \\
+1.2 & RCA clean & Wet bench & SC1+SC2 at \qty{75}{\degreeCelsius} & Contact angle < \qty{5}{\degree} \\
+\bottomrule
+\end{tblr}
+
+\subsection{Stage 2: Gate Formation}
+\begin{tblr}{
+    colspec = {X[0.5,c] X[2.5,l] X[1.8,l] X[3,l] X[2,l]},
+    row{1} = {font=\bfseries},
+    row{2-4} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Step & Purpose & Equipment & Parameters & QC Check \\
+\midrule
+2.1 & SiO\textsubscript{2} growth & Furnace E1 & DRY1000: \qty{1000}{\degreeCelsius}, 40min & Thickness \qty{35}{\nano\meter} $\pm$ \qty{1}{\nano\meter} \\
+2.2 & Poly-Si deposition & Furnace E2 & DOPEPOLY: \qty{620}{\degreeCelsius}, 2hr & Thickness \qty{400}{\nano\meter} $\pm$ \qty{40}{\nano\meter} \\
+\SetCell{fg=red} 2.3 & \SetCell{fg=red} Activation anneal & \SetCell{fg=red} Furnace E1 & N\textsubscript{2}, \qty{1000}{\degreeCelsius}, 20min & Sheet R: \qtyrange[per-mode=symbol]{40}{50}{\ohm\per\centi\meter\squared} \\
+\bottomrule
+\end{tblr}
+
+\subsection{Stage 3: Backside Processing}
+\begin{tblr}{
+    colspec = {X[0.5,c] X[2.5,l] X[1.8,l] X[3,l] X[2,l]},
+    row{1} = {font=\bfseries},
+    row{2-4} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Step & Purpose & Equipment & Parameters & QC Check \\
+\midrule
+3.1 & DRIE backside & Pegasus 3 & Recipe: MEMS-MD (Target \qty{200}{\micro\meter}) & Depth uniformity <\qty{3}{\percent} \\
+3.2 & Oxide etch & Wet bench 04 & BHF 2:1, 28sec & Full oxide removal \\
+\SetCell{fg=red} 3.3 & \SetCell{fg=red} Backside metallization & \SetCell{fg=red} Temescal & \SetCell{fg=red} Al 400nm & \SetCell{fg=red} Add Step 5.2 anneal \\
+\bottomrule
+\end{tblr}
+
+% === TROUBLESHOOTING ===
+\section{Troubleshooting Appendix}
+\begin{tblr}{
+    colspec = {X[2,l] X[2.5,l] X[3,l]},
+    row{1} = {font=\bfseries},
+    row{2-6} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Symptom & Root Cause & Solution \\
+\midrule
+SiO\textsubscript{2} thickness < \qty{34}{\nano\meter} & Furnace temp drift & Increase time \qty{15}{\percent} + calibrate thermocouple \\
+Poly-Si peeling & Poor adhesion & Add 5min Ar sputter pre-clean \\
+\SetCell{fg=red} Back contact non-ohmic & \SetCell{fg=red} Missing anneal & \SetCell{fg=red} Implement Step 5.2 with forming gas \\
+Gate CD variation >0.5$\mu$m & Litho defocus & Maintain defocus $\leq$2$\mu$m + N\textsubscript{2} purge \\
+\bottomrule
+\end{tblr}
+
+% === FUTURE INTEGRATION ===
+\section{FET/Sensor Integration Flags}
+\begin{itemize}
+    \item \textcolor{red}{\textbf{Step 2.3:}} Future FET - Add P\textsuperscript{+} implantation mask
+    \item \textcolor{blue}{\textbf{Step 4.1:}} Sensor mod - Expand pattern for microfluidics
+    \item \textcolor{red}{\textbf{Step 5.2:}} Biocompatibility - Replace Al with Au/Ti
+    \item \textcolor{blue}{\textbf{Backside DRIE:}} Membrane sensors - Target 5-20$\mu$m thickness
+\end{itemize}
+
+% === FIGURES ===
+\section{Figures}
+\begin{tblr}{
+    colspec = {X[0.5,c] X[0.7,c] X[3,l] X[2,l]},
+    row{1} = {font=\bfseries},
+    row{2-4} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+ID & Step & Caption & File \\
+\midrule
+1 & 2.1 & After thermal oxidation & thermal\_oxide.png \\
+2 & 4.2 & Post gate etch & gate\_pattern.png \\
+\SetCell{fg=green} 3 & \SetCell{fg=green} 5.2 & \SetCell{fg=green} Final MOSCAP & \SetCell{fg=green} final\_structure.png \\
+\bottomrule
+\end{tblr}
+
+\end{document}
