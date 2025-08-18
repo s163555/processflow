@@ -75,9 +75,10 @@ Back contact & Al & \qty{400}{\nano\meter} \\
 \toprule
 Step & Process & Equipment & Key Parameters \\
 \midrule
+0.1 & LOCOS isolation & \textcolor{blue}{See DOC-LOCOSV1.DOCX} & \textcolor{blue}{Ref: Isolation spec} \\
 1.1 & RCA clean & Wet bench & SC1+SC2 @ \qty{75}{\degreeCelsius} \\
-2.1 & SiO\textsubscript{2} growth & Furnace & \qty{1000}{\degreeCelsius}, 40min \\
-3.1 & Poly-Si deposition & LPCVD & \qty{620}{\degreeCelsius}, 2hr \\
+2.1 & SiO\textsubscript{2} growth & Furnace & \qty{1000}{\degreeCelsius}, \qty{40}{\minute} \\
+3.1 & Poly-Si deposition & LPCVD & \qty{620}{\degreeCelsius}, \qty{2}{\hour} \\
 4.1 & Gate patterning & Aligner + Etch & Mask: capacitor \\
 5.1 & Back Al deposition & E-beam & \qty{400}{\nano\meter} \\
 5.2 & Contact anneal & RTP & \qty{450}{\degreeCelsius}, \qty{30}{\minute} \\
@@ -96,7 +97,7 @@ Step & QC Verification \\
 \midrule
 2.1 & Oxide thickness: \qty{35}{\nano\meter} $\pm$ \qty{1}{\nano\meter} \\
 4.1 & Gate CD: $\pm$ $\qty{0.5}{\micro\meter}$ \\
-5.2 & Contact R < $1~\Omega / \square$ \\
+5.2 & Contact R < $1~\Omega / \square$ (expected sheet resistance: $R_{s}=\frac{\rho_{Al}}{t_{Al}}=\frac{\qty[per-mode=symbol]{2.65e-8}{\ohm\per\metre}}{\qty{400e-9}{\metre}}=0.066~\Omega / \square$) \\
 \bottomrule
 \end{tblr}
 
