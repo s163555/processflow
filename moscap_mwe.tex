@@ -3,14 +3,14 @@
 
 % Override default metadata
 \renewcommand{\processflowtitle}{Minimal MOS Capacitor Process}
-\renewcommand{\revision}{Rev 0.1}
+\renewcommand{\revision}{Rev 0.2}
 \renewcommand{\contactemail}{jephin@dtu.dk}
 \renewcommand{\contactname}{Jeppe Hinrichs}
 \renewcommand{\contactphone}{Not applicable}
-\renewcommand{\labmanagergroup}{DkCCC}
+\renewcommand{\labmanagergroup}{Not applicable}
 \renewcommand{\batchname}{TBD}
 \renewcommand{\datecreation}{2025-08-15}
-\renewcommand{\daterevision}{2025-08-15}
+\renewcommand{\daterevision}{2025-08-18}
 
 \begin{document}
 
@@ -94,11 +94,20 @@ Step & Process & Equipment & Key Parameters \\
 \toprule
 Step & QC Verification \\
 \midrule
-2.1 & Oxide thickness: \qty{35}{\nano\meter} ± \qty{1}{\nano\meter} \\
-4.1 & Gate CD: ± \qty{0.5}{\micro\meter} \\
+2.1 & Oxide thickness: \qty{35}{\nano\meter} $\pm$ \qty{1}{\nano\meter} \\
+4.1 & Gate CD: $\pm$ $\qty{0.5}{\micro\meter}$ \\
 5.2 & Contact R < $1~\Omega / \square$ \\
 \bottomrule
 \end{tblr}
+
+% === PROCESS FLOW DIAGRAM ===
+\section{Process Flow Diagram}
+\begin{figure}[h]
+    \centering
+    \input{moscap_mwe_flow.tikz}
+    \caption{Process flow diagram for MOS capacitor fabrication.}
+    \label{fig:moscap_flow}
+\end{figure}
 
 % === FIGURES ===
 \section{Required Figures}
@@ -110,16 +119,35 @@ Step & QC Verification \\
 \toprule
 ID & Step & Description \\
 \midrule
-1 & 2.1 &
+1 & 1.1 &
 \begin{minipage}{\linewidth}
     \centering
-    {\resizebox{\linewidth}{!}{\input{moscap.tikz}}}\\[2pt]
-    Cross-section
+    {\resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_1-1.pdf}}}\\[2pt]
 \end{minipage} \\
-2 & 5.2 & \begin{minipage}{\linewidth}
+2 & 2.1 &
+\begin{minipage}{\linewidth}
     \centering
-    %{\resizebox{\linewidth}{!}{\includesvg{moscap_mwe_td.svg}}}\\[2pt]
-    Process flow
+    {\resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_2-1.pdf}}}\\[2pt]
+\end{minipage} \\
+3 & 3.1 &
+\begin{minipage}{\linewidth}
+    \centering
+    {\resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_3-1.pdf}}}\\[2pt]
+\end{minipage} \\
+4 & 4.1 &
+\begin{minipage}{\linewidth}
+    \centering
+    {\resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_4-1.pdf}}}\\[2pt]
+\end{minipage} \\
+5 & 5.1 &
+\begin{minipage}{\linewidth}
+    \centering
+    {\resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_5-1.pdf}}}\\[2pt]
+\end{minipage} \\
+6 & 5.2 &
+\begin{minipage}{\linewidth}
+    \centering
+    {\resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_5-2.pdf}}}\\[2pt]
 \end{minipage} \\
 \bottomrule
 \end{tblr}

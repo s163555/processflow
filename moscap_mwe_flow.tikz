@@ -1,0 +1,24 @@
+\usetikzlibrary{shapes.geometric, arrows}
+
+\tikzstyle{process} = [rectangle, rounded corners,
+    minimum width=3.5cm, minimum height=1cm,
+    text centered, draw=black, fill=blue!10]
+
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\begin{tikzpicture}[node distance=1.5cm]
+
+\node (step1) [process] {Wafer Clean};
+\node (step2) [process, below of=step1] {Gate Oxide};
+\node (step3) [process, below of=step2] {Gate Electrode};
+\node (step4) [process, below of=step3] {Pattern Gate};
+\node (step5) [process, below of=step4] {Back Contact};
+\node (step6) [process, below of=step5] {Anneal};
+
+\draw [arrow] (step1) -- (step2);
+\draw [arrow] (step2) -- (step3);
+\draw [arrow] (step3) -- (step4);
+\draw [arrow] (step4) -- (step5);
+\draw [arrow] (step5) -- (step6);
+
+\end{tikzpicture}
