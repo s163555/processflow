@@ -63,3 +63,9 @@
     \hrule height 1pt
     \vspace{2em}
 }
+
+\let\oldtextmu\textmu
+\renewcommand{\textmu}{{\fontencoding{TS1}\fontfamily{mlmr}\selectfont\oldtextmu}}
+%%                                                                        %%
+%%========================================================================%%
+\DeclareSIPrefix\micro{\text{\textmu}}{-6}

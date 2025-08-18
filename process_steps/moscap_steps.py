@@ -29,7 +29,10 @@ def draw_step(ax, step_id, step_desc, show_oxide=False, show_poly=False, pattern
     
     # Backside Al
     if show_back_al:
-        ax.add_patch(Rectangle((0, -0.2), W, H_al, facecolor="#cccccc", edgecolor="black"))
+        if annealed:
+            ax.add_patch(Rectangle((0, -H_al), W, H_al, facecolor="#cccccc", edgecolor="black"))
+        else: # Gap without anneal
+            ax.add_patch(Rectangle((0, -0.2), W, H_al, facecolor="#cccccc", edgecolor="black"))
     
     # Labels
     ax.text(W/2, -0.5, "p-type Si substrate", ha='center', va='center', fontsize=10)
@@ -45,8 +48,8 @@ def draw_step(ax, step_id, step_desc, show_oxide=False, show_poly=False, pattern
         ax.text(W/2, -0.35, "Backside Al contact (400 nm)", ha='center', va='center', fontsize=9)
     
     # Top surface line
-    #top_y = H_sub + H_ox + (H_poly if show_poly else 0)
-    #ax.plot([0, W], [top_y, top_y], color='black', linewidth=0.5)
+    top_y = H_sub + H_ox + (H_poly if show_poly else 0)
+    ax.plot([0, W], [top_y, top_y], color='black', linewidth=0.5)
     
     # Formatting
     ax.set_xlim(-0.5, W + 0.5)
