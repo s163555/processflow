@@ -6,6 +6,7 @@ This repository contains documentation, cross-section illustrations, and LaTeX s
 
 ## Repository Structure
 
+```
 moscap/
 ├── figures/process_steps/
 │ ├── moscap_steps.py # Script that generates PDF/PNG cross-section illustrations per process step
@@ -18,19 +19,12 @@ moscap/
 ├── moscap_mwe.tex # Minimal MOS Capacitor Process
 ├── template.tex # Document template with styling and macros
 └── README.md # This file
+```
 
 ## Scripts
 
-- `figures/generate_figures.py`: generates proportional cross-section figures (`.png` and `.pdf`) in `process_steps/`.  
+- `figures/process_steps/moscap_steps.py`: generates proportional cross-section figures (`.png` and `.pdf`) in `figures/process_steps/moscap`.  
 - Ensure `matplotlib` and `numpy` are installed to run the script.
-
----
-
-## Safety Notes
-
-- **HF handling:** Apron + gloves, face shield, no lone working, no glass beakers.  
-- **Furnace:** Thermal gloves required for >800 °C operations.  
-- **Metal anneal:** Avoid ≥450 °C for Al; Ti barrier must mitigate Al spiking.
 
 ---
 
