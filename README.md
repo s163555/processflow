@@ -7,14 +7,15 @@ This repository contains documentation, cross-section illustrations, and LaTeX s
 ## Repository Structure
 
 ```
-moscap/
-├── figures/process_steps/
-│ ├── moscap_steps.py # Script that generates PDF/PNG cross-section illustrations per process step
-│ ├── moscap/moscap_step_0-1.pdf
-│ ├── moscap/moscap_step_1-1.pdf
-│ └── ...
+processflow/
 ├── figures/
-│ ├── moscap_mwe_flow.tikz # TikZ diagram of the full process flow
+│ ├── process_steps/
+│ │ ├── moscap/
+│ │ │ ├── moscap_step_0-1.pdf
+│ │ │ ├── moscap_step_1-1.pdf
+│ │ │ └── ...
+│ │ └── moscap_steps.py # Script that generates PDF/PNG cross-section illustrations per process step
+│ └── moscap_mwe_flow.tikz # TikZ diagram of the full process flow
 ├── .gitignore # Revision control template
 ├── moscap_mwe.tex # Minimal MOS Capacitor Process
 ├── template.tex # Document template with styling and macros
