@@ -118,7 +118,7 @@ steps = [
 ]
 
 # --- Output folder ---
-out_dir = os.path.join("process_steps", "moscap")
+out_dir = os.path.join("figures", "process_steps", "moscap")
 os.makedirs(out_dir, exist_ok=True)
 
 # --- Generate figures ---
