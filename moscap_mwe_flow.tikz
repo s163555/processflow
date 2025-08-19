@@ -1,24 +1,52 @@
 \usetikzlibrary{shapes.geometric, arrows}
 
 \tikzstyle{process} = [rectangle, rounded corners,
-    minimum width=3.5cm, minimum height=1cm,
+    minimum width=4cm, minimum height=1cm,
     text centered, draw=black, fill=blue!10]
+
+\tikzstyle{optional} = [rectangle, rounded corners,
+    minimum width=4cm, minimum height=1cm,
+    text centered, draw=black, fill=gray!15, dashed]
 
 \tikzstyle{arrow} = [thick,->,>=stealth]
 
-\begin{tikzpicture}[node distance=1.5cm]
+\begin{tikzpicture}[node distance=1.4cm]
 
-\node (step1) [process] {Wafer Clean};
-\node (step2) [process, below of=step1] {Gate Oxide};
-\node (step3) [process, below of=step2] {Gate Electrode};
-\node (step4) [process, below of=step3] {Pattern Gate};
-\node (step5) [process, below of=step4] {Back Contact};
-\node (step6) [process, below of=step5] {Anneal};
+% Top optional LOCOS
+\node (step0) [optional] {0.1: LOCOS Isolation (optional)};
 
+% Cleaning
+\node (step1) [process, below of=step0] {1.1: Pre-oxidation Clean (HF-last)};
+
+% Gate oxide
+\node (step2) [process, below of=step1] {2.1: Gate Oxide Growth};
+
+% Poly deposition
+\node (step3) [process, below of=step2] {3.1: Poly-Si Deposition (n+ in-situ preferred)};
+\node (step3b) [optional, below of=step3] {3.2: Poly Doping + Anneal (if ex-situ doped)};
+
+% Patterning
+\node (step4) [process, below of=step3b] {4.1: Gate Patterning};
+\node (step4b) [optional, below of=step4] {4.2: Top Pad Metallization (recommended)};
+
+% Backside steps
+\node (step5a) [process, below of=step4b] {5.0: Backside Oxide Strip};
+\node (step5b) [process, below of=step5a] {5.1: Backside Ti Deposition};
+\node (step5c) [process, below of=step5b] {5.2: Backside Al Deposition};
+
+% Anneal
+\node (step6) [process, below of=step5c] {5.3: Contact / Forming Gas Anneal};
+
+% Arrows
+\draw [arrow] (step0) -- (step1);
 \draw [arrow] (step1) -- (step2);
 \draw [arrow] (step2) -- (step3);
-\draw [arrow] (step3) -- (step4);
-\draw [arrow] (step4) -- (step5);
-\draw [arrow] (step5) -- (step6);
+\draw [arrow] (step3) -- (step3b);
+\draw [arrow] (step3b) -- (step4);
+\draw [arrow] (step4) -- (step4b);
+\draw [arrow] (step4b) -- (step5a);
+\draw [arrow] (step5a) -- (step5b);
+\draw [arrow] (step5b) -- (step5c);
+\draw [arrow] (step5c) -- (step6);
 
 \end{tikzpicture}

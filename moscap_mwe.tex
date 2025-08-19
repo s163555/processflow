@@ -3,14 +3,14 @@
 
 % Override default metadata
 \renewcommand{\processflowtitle}{Minimal MOS Capacitor Process}
-\renewcommand{\revision}{Rev 0.2}
+\renewcommand{\revision}{Rev 0.3}
 \renewcommand{\contactemail}{jephin@dtu.dk}
 \renewcommand{\contactname}{Jeppe Hinrichs}
 \renewcommand{\contactphone}{Not applicable}
 \renewcommand{\labmanagergroup}{Not applicable}
 \renewcommand{\batchname}{TBD}
 \renewcommand{\datecreation}{2025-08-15}
-\renewcommand{\daterevision}{2025-08-18}
+\renewcommand{\daterevision}{2025-08-19}
 
 \begin{document}
 
@@ -31,8 +31,9 @@ Bare-minimum fabrication flow for MOS capacitor structure. \\
 
 \subsection*{Critical Safety}
 \begin{itemize}
-    \item \textbf{HF handling:} Double nitrile gloves + face shield
+    \item \textbf{HF handling:} Apron+gloves, face shield, no lone working, no glass beakers!
     \item \textbf{Furnace:} Thermal gloves for >\qty{800}{\degreeCelsius} operations
+    \item \textbf{Metal anneal:} confirm Al spiking risk mitigated by Ti barrier, avoid $\ge \qty{450}{\degreeCelsius}$ for Al
 \end{itemize}
 
 % === MATERIAL SPECIFICATIONS ===
@@ -54,34 +55,40 @@ Silicon & p-type <100>, 6", 1-10 \Omega\cdot cm & 5 \\
 \begin{tblr}{
     colspec = {lcc},
     row{1} = {font=\bfseries},
-    row{2-4} = {abovesep=3pt,belowsep=3pt}
+    row{2-5} = {abovesep=3pt,belowsep=3pt}
 }
 \toprule
 Layer & Material & Thickness \\
 \midrule
 Gate oxide & Thermal SiO\textsubscript{2} & \qty{35}{\nano\meter} \\
 Gate electrode & n+ Poly-Si & \qty{400}{\nano\meter} \\
+Back barrier/adhesion & Ti & \qty{100}{\nano\meter} \\
 Back contact & Al & \qty{400}{\nano\meter} \\
 \bottomrule
 \end{tblr}
+
 
 % === PROCESS FLOW ===
 \section{Core Process Flow}
 \begin{tblr}{
     colspec = {cX[3]lX[2]},
     row{1} = {font=\bfseries},
-    row{2-5} = {abovesep=3pt,belowsep=3pt}
+    row{2-11} = {abovesep=3pt,belowsep=3pt}
 }
 \toprule
 Step & Process & Equipment & Key Parameters \\
 \midrule
-0.1 & LOCOS isolation & \textcolor{blue}{See locos\_v1.DOCX} & \textcolor{blue}{Ref: Isolation spec} \\
-1.1 & RCA clean & Wet bench & SC1+SC2 @ \qty{75}{\degreeCelsius} \\
-2.1 & SiO\textsubscript{2} growth & Furnace & \qty{1000}{\degreeCelsius}, \qty{40}{\minute} \\
-3.1 & Poly-Si deposition & LPCVD & \qty{620}{\degreeCelsius}, \qty{2}{\hour} \\
-4.1 & Gate patterning & Aligner + Etch & Mask: capacitor \\
-5.1 & Back Al deposition & E-beam & \qty{400}{\nano\meter} \\
-5.2 & Contact anneal & RTP & \qty{450}{\degreeCelsius}, \qty{30}{\minute} \\
+0.1 & (Optional) LOCOS isolation & \textcolor{blue}{See locos\_v1.DOCX} & \textcolor{blue}{Use if isolation is required} \\
+1.1 & Pre-oxidation clean (HF-last) & Wet bench & SC1, SC2, HF (1–2\%), immediate furnace load \\
+2.1 & Gate SiO\textsubscript{2} growth & Furnace & \qty{1000}{\degreeCelsius}, dry/wet-dry recipe to \qty{35}{\nano\meter} \\
+3.1 & Poly-Si deposition (n+ preferred) & LPCVD & \qty{620}{\degreeCelsius}, \qty{2}{\hour}; \textit{specify in-situ PH\textsubscript{3} or undoped} \\
+3.2 & (If undoped) Poly doping + anneal & Diffusion/RTA & POCl\textsubscript{3} or P implant; anneal per spec \\
+4.1 & Gate patterning & Aligner + Etch & Mask: capacitor; poly etch (e.g.\ HBr/Cl\textsubscript{2} ICP or TMAH) \\
+4.2 & (Recommended) Top pad metallization & Sputter/E-beam & Short HF dip on poly; Al or Ti/Al pads; pattern lift-off or etch \\
+5.0 & Backside oxide strip & Wet bench & Protect front; BOE/HF until Si exposed; edge exclusion \\
+5.1 & Backside Ti deposition & Sputter & \qty{100}{\nano\meter} \\
+5.2 & Backside Al deposition & E-beam/Sputter & \qty{400}{\nano\meter} \\
+5.3 & Contact/forming-gas anneal & RTP/Furnace & \qtyrange{400}{450}{\degreeCelsius}, \qtyrange{20}{30}{\minute}, N\textsubscript{2} or 5\% H\textsubscript{2} in N\textsubscript{2} \\
 \bottomrule
 \end{tblr}
 
@@ -90,20 +97,25 @@ Step & Process & Equipment & Key Parameters \\
 \begin{tblr}{
     colspec = {lX[3]},
     row{1} = {font=\bfseries},
-    row{2-4} = {abovesep=3pt,belowsep=3pt}
+    row{2-7} = {abovesep=3pt,belowsep=3pt}
 }
 \toprule
 Step & QC Verification \\
 \midrule
 2.1 & Oxide thickness: \qty{35}{\nano\meter} $\pm$ \qty{1}{\nano\meter} \\
+3.1/3.2 & Poly n+ sheet resistance: $\le$ 30~\Omega/\square \\
 4.1 & Gate CD: $\pm$ $\qty{0.5}{\micro\meter}$ \\
-5.2 & Contact R < $1~\Omega / \square$ (expected sheet resistance: $R_{s}=\frac{\rho_{Al}}{t_{Al}}=\frac{\qty[per-mode=symbol]{2.65e-8}{\ohm\per\metre}}{\qty{400e-9}{\metre}}=0.066~\Omega / \square$) \\
+4.2 & Metal pad continuity and adhesion (tape test); contact to poly $<\,$\SI{10}{\ohm} for pad geometries \\
+5.0 & Backside oxide fully removed (contact-angle change, test drop, or monitor wafer) \\
+5.1 & Backside Ti sheet resistance $\approx$ 0.3~\Omega/\square (\qty{100}{\nano\meter} Ti) \\
+5.2 & Backside Al sheet resistance $\approx$ 0.07~\Omega/\square (\qty{400}{\nano\meter} Al) \\
+5.3 & Contact anneal; contact resistance to Si governed by Ti/Si interface quality (target < 1~\Omega \cdot contact) \\
 \bottomrule
 \end{tblr}
 
 % === PROCESS FLOW DIAGRAM ===
 \section{Process Flow Diagram}
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
     \input{moscap_mwe_flow.tikz}
     \caption{Process flow diagram for MOS capacitor fabrication.}
@@ -112,45 +124,94 @@ Step & QC Verification \\
 
 % === FIGURES ===
 \section{Required Figures}
-\begin{tblr}{
-    colspec = {ccX[3]},
+\begin{longtblr}{
+    colspec = {c c X[3]},
     row{1} = {font=\bfseries},
-    row{2-3} = {abovesep=3pt,belowsep=3pt}
+    row{2-Z} = {abovesep=3pt, belowsep=3pt},
+    hlines,
+    vlines,
 }
-\toprule
+%\caption{MOS capacitor process cross-sections}
 ID & Step & Description \\
-\midrule
+
+0 & 0.1 &
+\begin{minipage}{\linewidth}
+    \centering
+    \resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_0-1.pdf}}\\[2pt]
+    LOCOS isolation (optional)
+\end{minipage} \\
+
 1 & 1.1 &
 \begin{minipage}{\linewidth}
     \centering
-    {\resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_1-1.pdf}}}\\[2pt]
+    \resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_1-1.pdf}}\\[2pt]
+    Pre-oxidation clean (HF-last)
 \end{minipage} \\
+
 2 & 2.1 &
 \begin{minipage}{\linewidth}
     \centering
-    {\resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_2-1.pdf}}}\\[2pt]
+    \resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_2-1.pdf}}\\[2pt]
+    Gate oxide growth
 \end{minipage} \\
+
 3 & 3.1 &
 \begin{minipage}{\linewidth}
     \centering
-    {\resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_3-1.pdf}}}\\[2pt]
+    \resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_3-1.pdf}}\\[2pt]
+    Poly-Si deposition (blanket)
 \end{minipage} \\
-4 & 4.1 &
+
+4 & 3.2 &
 \begin{minipage}{\linewidth}
     \centering
-    {\resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_4-1.pdf}}}\\[2pt]
+    \resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_3-2.pdf}}\\[2pt]
+    Poly doping + anneal
 \end{minipage} \\
-5 & 5.1 &
+
+5 & 4.1 &
 \begin{minipage}{\linewidth}
     \centering
-    {\resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_5-1.pdf}}}\\[2pt]
+    \resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_4-1.pdf}}\\[2pt]
+    Gate patterning + top pad
 \end{minipage} \\
-6 & 5.2 &
+
+6 & 4.2 &
 \begin{minipage}{\linewidth}
     \centering
-    {\resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_5-2.pdf}}}\\[2pt]
+    \resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_4-2.pdf}}\\[2pt]
+    Top pad metallization (optional)
 \end{minipage} \\
-\bottomrule
-\end{tblr}
+
+7 & 5.0 &
+\begin{minipage}{\linewidth}
+    \centering
+    \resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_5-0.pdf}}\\[2pt]
+    Backside oxide strip
+\end{minipage} \\
+
+8 & 5.1 &
+\begin{minipage}{\linewidth}
+    \centering
+    \resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_5-1.pdf}}\\[2pt]
+    Backside Ti deposition
+\end{minipage} \\
+
+9 & 5.2 &
+\begin{minipage}{\linewidth}
+    \centering
+    \resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_5-2.pdf}}\\[2pt]
+    Backside Al deposition
+\end{minipage} \\
+
+10 & 5.3 &
+\begin{minipage}{\linewidth}
+    \centering
+    \resizebox{!}{3.5cm}{\includegraphics{process_steps/moscap/moscap_step_5-3.pdf}}\\[2pt]
+    Contact anneal
+\end{minipage} \\
+
+\end{longtblr}
+
 
 \end{document}
