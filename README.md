@@ -6,7 +6,7 @@ This repository contains documentation, cross-section illustrations, and LaTeX s
 
 ## Quick Start
 
-To regenerate all MOS capacitor cross-section figures:
+To generate the documentation:
 
 1. **Clone the repository** (if not already done):
    ```bash
