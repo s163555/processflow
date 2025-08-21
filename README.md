@@ -4,6 +4,30 @@ This repository contains documentation, cross-section illustrations, and LaTeX s
 
 ---
 
+## Quick Start
+
+To regenerate all MOS capacitor cross-section figures:
+
+1. **Clone the repository** (if not already done):
+   ```bash
+   git clone https://github.com/s163555>/processflow
+   cd processflow
+   ```
+2. **Install dependencies** (assuming python is installed):
+   ```bash
+   pip install matplotlib numpy
+   ```
+3. **Generate figures**:
+   ```bash
+	python figures/process_steps/moscap_steps.py
+   ```
+4. **Compile LaTeX document** (assuming texlive is installed):
+   ```bash
+   lualatex moscap.tex
+	```
+
+---
+
 ## Repository Structure
 
 ```
