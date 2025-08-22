@@ -10,7 +10,7 @@ To generate the documentation:
 
 1. **Clone the repository** (if not already done):
    ```bash
-   git clone https://github.com/s163555>/processflow
+   git clone https://github.com/s163555/processflow
    cd processflow
    ```
 2. **Install dependencies** (assuming python is installed):
