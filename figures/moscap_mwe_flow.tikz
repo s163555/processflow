@@ -27,10 +27,10 @@
 
 % Patterning
 \node (step4) [process, below of=step3b] {4.1: Gate Patterning};
-\node (step4b) [optional, below of=step4] {4.2: Top Pad Metallization (recommended)};
+%\node (step4b) [optional, below of=step4] {4.2: Top Pad Metallization (recommended)};
 
 % Backside steps
-\node (step5a) [process, below of=step4b] {5.0: Backside Oxide Strip};
+\node (step5a) [process, below of=step4] {5.0: Backside Oxide Strip};
 \node (step5b) [process, below of=step5a] {5.1: Backside Ti Deposition};
 \node (step5c) [process, below of=step5b] {5.2: Backside Al Deposition};
 
@@ -43,8 +43,8 @@
 \draw [arrow] (step2) -- (step3);
 \draw [arrow] (step3) -- (step3b);
 \draw [arrow] (step3b) -- (step4);
-\draw [arrow] (step4) -- (step4b);
-\draw [arrow] (step4b) -- (step5a);
+\draw [arrow] (step4) -- (step5a);
+%\draw [arrow] (step4b) -- (step5a);
 \draw [arrow] (step5a) -- (step5b);
 \draw [arrow] (step5b) -- (step5c);
 \draw [arrow] (step5c) -- (step6);
