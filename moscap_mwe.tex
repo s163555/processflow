@@ -83,14 +83,14 @@ Back contact & Al & \qty{400}{\nano\meter} \\
   Step & Process & Equipment & Parameters & Comment \\
   \midrule
   \textbf{\Large1} & \SetCell[c=4]{c, font=\bfseries\Large} Dry-Ox & & & \\
-  1.1 & Pre-oxidation inspection & 4-point probe + Thickness tool & Measure resistivity and thickness on one wafer & Verify starting material specifications. \\
+  1.1 & Inspection & 4-point probe + Thickness tool & Measure resistivity and thickness on one wafer & Verify starting material specifications. \\
   1.2 & Pre-oxidation clean & RCA bench & Standard RCA clean & Can be skipped for fresh, out-of-the-box wafers. \\
-  1.3 & Gate SiO\textsubscript{2} growth & Furnace: Oxidation (8") E1 & Recipe DRY1000: \qty{40}{\minute} oxidation + \qty{20}{\minute} anneal at \qty{1000}{\degreeCelsius} & Target thickness: \qty{35}{\nano\meter}. \\
+  1.3 & Gate SiO\textsubscript{2} growth & Furnace: Oxidation (8") E1 & \SetCell{m} Recipe: DRY1000 \newline Oxidation time: \qty{40}{\minute} \newline Anneal time: \qty{20}{\minute} & Target thickness: \qty{35}{\nano\meter}. \\
   1.4 & Inspection & Ellipsometer & & Verify oxide thickness. \\
   \midrule
   \textbf{\Large2} & \SetCell[c=4]{c, font=\bfseries\Large} Poly-Si & & & \\
   2.1 & Pre-deposition clean & RCA bench & Standard RCA clean & Required if wafers were stored after Step 1. \\
-  2.2 & Poly-Si deposition & Furnace: LPCVD Poly-Si (6") E2 & Recipe DOPEPOLY: \qty{2}{\hour} deposition & Target thickness: \qty{400}{\nano\meter}. \\
+  2.2 & Poly-Si deposition & Furnace: LPCVD Poly-Si (6") E2 & \SetCell{m} Recipe: DOPEPOLY \newline Deposition time: \qty{2}{\hour} & Target thickness: \qty{400}{\nano\meter}. \\
   2.3 & Inspection & Filmtek / Ellipsometer & & Verify poly-Si thickness. \\
   \midrule
   \textbf{\Large3} & \SetCell[c=4]{c, font=\bfseries\Large} Anneal Poly-Si & & & \\
@@ -98,12 +98,12 @@ Back contact & Al & \qty{400}{\nano\meter} \\
   3.2 & Poly-Si anneal & Furnace: Oxidation (8") E1 & Recipe ANN1000: \qty{20}{\minute} at \qty{1000}{\degreeCelsius} & Activates dopants and improves film quality. \\
   \midrule
   \textbf{\Large4} & \SetCell[c=4]{c, font=\bfseries\Large} Etch gate Poly-Si & & & \\
-  4.1 & Gate lithography: Coat & Spin Coater: Gamma UV & Sequence 1611: \qty{1.5}{\micro\meter} HMDS resist. Spin: \qty{30}{\second} @ $4600~\mathrm{rpm}$. Softbake: \qty{90}{\second} @ \qty{90}{\degreeCelsius}. & \\
-  4.2 & Gate lithography: Expose & Aligner: MLA2 & Mask: gate\_poly. Laser: \qty{375}{\nano\meter}. Dose: \qty[per-mode=symbol]{325}{\milli\joule\per\centi\meter\squared}. Defocus: 2. Mode: Quality. & TEST exposure. \\
+  4.1 & Gate lithography: Coat & Spin Coater: Gamma UV & \SetCell{m} Sequence 1611: \qty{1.5}{\micro\meter} HMDS resist. \newline Spin: \qty{30}{\second} @ $4600~\mathrm{rpm}$. \newline Softbake: \qty{90}{\second} @ \qty{90}{\degreeCelsius}. & \\
+  4.2 & Gate lithography: Expose & Aligner: MLA2 & \SetCell{m} Mask: gate\_poly. \newline Laser: \qty{375}{\nano\meter}. \newline Dose: \qty[per-mode=symbol]{325}{\milli\joule\per\centi\meter\squared}. \newline Defocus: 2. \newline Mode: Quality. & TEST exposure. \\
   4.3 & Gate lithography: Develop & Developer: TMAH UV-lithography & Sequence 3001: PEB \qty{60}{\second} @ \qty{100}{\degreeCelsius}, SP \qty{60}{\second}. & \\
   4.4 & Litho inspection & Optical microscope & Check pattern and alignment marks & \\
   4.5 & DRIE tool preparation & DRIE -- Pegasus 3 & Recipe: TDESC for \qty{5}{\minute} & Chamber conditioning step. \\
-  4.6 & Gate poly-Si etch & DRIE -- Pegasus 3 & Recipe: ??; Cycles: ?? & Etches the \qty{400}{\nano\meter} poly-Si layer. \\
+  4.6 & Gate poly-Si etch & DRIE -- Pegasus 3 & \SetCell{m} Recipe: ?? \newline Cycles: ?? & Etches the \qty{400}{\nano\meter} poly-Si layer. \\
   4.7 & DRIE tool clean & DRIE -- Pegasus 3 & Recipe: 20 min stabilization + \qty{10}{\minute} clean & Post-process chamber cleaning. \\
   4.8 & Etch inspection & DekTak & Check step height & Verify poly-Si is etched through. \\
   4.9 & Resist strip & Wet bench 06 & Strip time: ?? & \\
@@ -113,15 +113,15 @@ Back contact & Al & \qty{400}{\nano\meter} \\
   5.1 & Backside oxide strip & Wet bench 04: BHF 2 & \qty{40}{\second} (etch rate \qtyrange[per-mode=symbol]{75}{80}{\nano\meter\per\minute}) & Perform \textit{immediately before} back metallization to ensure Si surface. \\
   \midrule
   \textbf{\Large6} & \SetCell[c=4]{c, font=\bfseries\Large} Backside electrode & & & \\
-  6.1 & Backside litho: Coat & Spin Coater: Gamma UV & Sequence 2411: \qty{1.5}{\micro\meter} nLOF 2020 resist. Spin: $6000~\mathrm{rpm}$. Softbake: \qty{120}{\second} @ \qty{110}{\degreeCelsius}. & \\
-  6.2 & Backside litho: Expose & Aligner: MLA2 & Mask: gate\_electrode. Laser: \qty{375}{\nano\meter}. Dose: \qty[per-mode=symbol]{450}{\milli\joule\per\centi\meter\squared}. Defocus: 0. Mode: Quality. & TEST exposure. \\
+  6.1 & Backside litho: Coat & Spin Coater: Gamma UV & \SetCell{m} Sequence 2411: \qty{1.5}{\micro\meter} nLOF 2020 resist. \newline Spin: $6000~\mathrm{rpm}$. \newline Softbake: \qty{120}{\second} @ \qty{110}{\degreeCelsius}. & \\
+  6.2 & Backside litho: Expose & Aligner: MLA2 & \SetCell{m}{ Mask: gate\_electrode. \newline Laser: \qty{375}{\nano\meter}. \newline Dose: \qty[per-mode=symbol]{450}{\milli\joule\per\centi\meter\squared}. \newline Defocus: 0. \newline Mode: Quality. } & TEST exposure. \\
   6.3 & Backside litho: Develop & Developer: TMAH UV-lithography & Sequence 3001: PEB \qty{60}{\second} @ \qty{110}{\degreeCelsius}, SP \qty{60}{\second} & \\
   6.4 & Litho inspection & Optical microscope & Check pattern and alignment marks & \\
   6.5 & Backside metal deposition (Ti) & Temescal & Ti: \qty{100}{\nano\meter} & Serves as adhesion/barrier layer. \\
   6.6 & Backside metal deposition (Al) & Temescal & Al: \qty{400}{\nano\meter} & Main backside contact metal. \\
   6.7 & Lift-off & Wet bench 07 & & \\
   6.8 & Post-lift-off inspection & Optical microscope & & Check pattern and alignment marks. \\
-  6.9 & Contact anneal & RTP2 Jipelec & Recipe: ??; Temp: ??; Time: ?? & Stabilizes the Ti/Al Si contact. Avoid $\geq 450^\circ$C (Al spiking). \\
+  6.9 & Contact anneal & RTP2 Jipelec & \SetCell{m} Recipe: ?? \newline Temp: ?? \newline Time: ?? & Stabilizes the Ti/Al Si contact. Avoid $\geq 450^\circ$C (Al spiking). \\
   \bottomrule
 \end{longtblr}
 
