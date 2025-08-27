@@ -70,72 +70,64 @@ Back contact & Al & \qty{400}{\nano\meter} \\
 
 % === PROCESS FLOW ===
 \section{Core Process Flow}
-\begin{longtblr}{
-    colspec = {cX[3]X[2]X[4]X[3]},
+\begin{longtblr}[
+    caption = {MOS Capacitor Process Flow},
+    label = {tab:moscap_flow},
+  ]{
+    colspec = {c X[2.5] X[2] X[3] X[2.5]},
     row{1} = {font=\bfseries},
-    row{2-Z} = {abovesep=3pt,belowsep=3pt}
-}
-\toprule
-Step & Process & Equipment & Parameters & Comment \\
-\midrule
-
-0.1 & (Optional) LOCOS isolation &
-Furnace: Oxidation (8") E1 &
-Recipe LOCOS, pad oxide + SiN mask + field oxidation &
-See \texttt{locos\_v1.DOCX}. Perform if device isolation needed. \\
-
-1.1 & Pre-oxidation clean &
-RCA bench &
-RCA clean: Standard &
-\\
-
-2.1 & Gate SiO\textsubscript{2} growth &
-Furnace: Oxidation (8") E1 &
-Recipe DRY1000: \qty{40}{\minute} dry oxidation + \qty{20}{\minute} anneal at \qty{1000}{\degreeCelsius}; target \qty{35}{\nano\meter} SiO\textsubscript{2} &
-Inspect oxide thickness by Ellipsometer or Filmtek; tolerance $\pm\qty{1}{\nano\meter}$. \\
-
-3.1 & Poly-Si deposition (n+ preferred) &
-Furnace: LPCVD Poly-Si (6") E2 &
-Recipe DOPEPOLY: \qty{2}{\hour} at \qty{620}{\degreeCelsius}, thickness \approx~\qty{400}{\nano\meter} &
-If in-situ PH\textsubscript{3} doping is available, select doped recipe. Measure film thickness (Ellipsometer/Filmtek). \\
-
-3.2 & (If undoped) Poly doping + anneal &
-Furnace: Oxidation (8") E1 or RTP &
-POCl\textsubscript{3} deposition + drive-in, or P implant + anneal (Recipe ANN1000, 20 min, \qty{1000}{\degreeCelsius}) &
-Required if 3.1 used undoped poly. Verify sheet resistance \le $30~\Omega/\square$. \\
-
-4.1 & Gate patterning (Lithography + Poly etch) &
-Litho: Gamma UV coater (Seq. 1611); Aligner MLA2; Etcher Pegasus 3 DRIE &
-Coat: \qty{1.5}{\micro\meter} resist, \qty{30}{\second} @ 4600 rpm, softbake \qty{90}{\second} at \qty{90}{\degreeCelsius}.  
-Expose MLA2: \qty{375}{\nano\meter}, \qty[per-mode=symbol]{325}{\milli\joule\per\centi\meter\squared}, defocus 2.  
-Develop: TMAH.  
-Etch: HBr/Cl\textsubscript{2} ICP or DRIE.  
-Strip resist in WB06. &
-Inspect CD with microscope; measure etch depth with DekTak. Target CD $\pm\qty{0.5}{\micro\meter}$. \\
-
-5.0 & Backside oxide strip &
-Wet bench 04 &
-Buffered HF 2 (BHF), \qty{40}{\second} (etch rate \qtyrange[per-mode=symbol]{75}{80}{\nano\meter\per\minute} for 35 nm oxide) &
-Protect frontside; leave edge exclusion. Confirm bare Si via contact angle or monitor wafer. \\
-
-5.1 & Backside Ti deposition &
-E-beam &
-Deposit Ti, 100 nm &
-Forms barrier + adhesion to Si. \\
-
-5.2 & Backside Al deposition &
-E-beam &
-Deposit Al, 400 nm &
-Back contact metal. \\
-
-5.3 & Contact / Forming-gas anneal &
-RTP2 Jipelec or Furnace &
-\qtyrange{400}{450}{\degreeCelsius}, \qtyrange{20}{30}{\minute}, N\textsubscript{2} or 5\% H\textsubscript{2} in N\textsubscript{2} &
-Stabilizes contacts. Contact resistance governed by Ti/Si interface; aim $<1~\Omega\cdot\mathrm{contact}$. \\
-
-\bottomrule
+    row{2-Z} = {abovesep=3pt, belowsep=3pt}
+  }
+  \toprule
+  Step & Process & Equipment & Parameters & Comment \\
+  \midrule
+  \textbf{\Large1} & \SetCell[c=4]{c, font=\bfseries\Large} Dry-Ox & & & \\
+  1.1 & Pre-oxidation inspection & 4-point probe + Thickness tool & Measure resistivity and thickness on one wafer & Verify starting material specifications. \\
+  1.2 & (Optional) Pre-oxidation clean & RCA bench & Standard RCA clean & Can be skipped for fresh, out-of-the-box wafers. \\
+  1.3 & Gate SiO\textsubscript{2} growth & Furnace: Oxidation (8") E1 & Recipe DRY1000: \qty{40}{\minute} oxidation + \qty{20}{\minute} anneal at \qty{1000}{\degreeCelsius} & Target thickness: \qty{35}{\nano\meter}. Growth rate ca. \qty{0.875}{\nano\meter\per\minute}. \\
+  1.4 & Inspection & Ellipsometer & & Verify oxide thickness. \\
+  \midrule
+  \textbf{\Large2} & \SetCell[c=4]{c, font=\bfseries\Large} Poly-Si & & & \\
+  2.1 & (Optional) Pre-deposition clean & RCA bench & Standard RCA clean & Required if wafers were stored after Step 1. \\
+  2.2 & Poly-Si deposition & Furnace: LPCVD Poly-Si (6") E2 & Recipe DOPEPOLY: \qty{2}{\hour} deposition & Target thickness: \qty{400}{\nano\meter}. \\
+  2.3 & Inspection & Filmtek / Ellipsometer & & Verify poly-Si thickness. \\
+  \midrule
+  \textbf{\Large3} & \SetCell[c=4]{c, font=\bfseries\Large} Anneal & & & \\
+  3.1 & (Optional) Pre-anneal clean & RCA bench & Standard RCA clean & Required if wafers were stored after Step 2. \\
+  3.2 & Poly-Si anneal & Furnace: Oxidation (8") E1 & Recipe ANN1000: \qty{20}{\minute} at \qty{1000}{\degreeCelsius} & Activates dopants and improves film quality. \\
+  \midrule
+  \textbf{\Large4} & \SetCell[c=4]{c, font=\bfseries\Large} DRIE backside & & & \\
+  4.1 & DRIE tool preparation & DRIE -- Pegasus 3 & Recipe: TDESC for \qty{5}{\minute} & Chamber conditioning step. \\
+  4.2 & Backside Si etch & DRIE -- Pegasus 3 & Recipe: ??; Cycles: ?? & Thins the wafer from the backside. \\
+  4.3 & DRIE tool clean & DRIE -- Pegasus 3 & Recipe: 20 min stabilization + \qty{10}{\minute} clean & Post-process chamber cleaning. \\
+  \midrule
+  \textbf{\Large5} & \SetCell[c=4]{c, font=\bfseries\Large} Oxide etch backside & & & \\
+  5.1 & Backside oxide etch & Wet bench 04: BHF 2 & \qty{40}{\second} (etch rate \qtyrange[per-mode=symbol]{75}{80}{\nano\meter\per\minute}) & Removes the \qty{35}{\nano\meter} oxide from the backside. \\
+  \midrule
+  \textbf{\Large6} & \SetCell[c=4]{c, font=\bfseries\Large} Etch gate poly & & & \\
+  6.1 & Gate lithography: Coat & Spin Coater: Gamma UV & Sequence 1611: \qty{1.5}{\micro\meter} HMDS resist. Spin: \qty{30}{\second} @ $4600~\mathrm{rpm}$. Softbake: \qty{90}{\second} @ \qty{90}{\degreeCelsius}. & \\
+  6.2 & Gate lithography: Expose & Aligner: MLA2 & Mask: gate\_poly. Laser: \qty{375}{\nano\meter}. Dose: \qty[per-mode=symbol]{325}{\milli\joule\per\centi\meter\squared}. Defocus: 2. Mode: Quality. & TEST exposure. \\
+  6.3 & Gate lithography: Develop & Developer: TMAH UV-lithography & Sequence 3001: PEB \qty{60}{\second} @ \qty{100}{\degreeCelsius}, SP \qty{60}{\second}. & \\
+  6.4 & Litho inspection & Optical microscope & Check pattern and alignment marks & \\
+  6.5 & DRIE tool preparation & DRIE -- Pegasus 3 & Recipe: TDESC for \qty{5}{\minute} & Chamber conditioning step. \\
+  6.6 & Gate poly-Si etch & DRIE -- Pegasus 3 & Recipe: ??; Cycles: ?? & Etches the \qty{400}{\nano\meter} poly-Si layer. \\
+  6.7 & DRIE tool clean & DRIE -- Pegasus 3 & Recipe: 20 min stabilization + \qty{10}{\minute} clean & Post-process chamber cleaning. \\
+  6.8 & Etch inspection & DekTak & Check step height & Verify poly-Si is etched through. \\
+  6.9 & Resist strip & Wet bench 06 & Strip time: ?? & \\
+  6.10 & Final gate inspection & DekTak & Measure heights and widths & Verify critical dimensions (CD). \\
+  \midrule
+  \textbf{\Large7} & \SetCell[c=4]{c, font=\bfseries\Large} Backside electrode & & & \\
+  7.1 & Backside litho: Coat & Spin Coater: Gamma UV & Sequence 2411: \qty{1.5}{\micro\meter} nLOF 2020 resist. Spin: $6000~\mathrm{rpm}$. Softbake: \qty{120}{\second} @ \qty{110}{\degreeCelsius}. & \\
+  7.2 & Backside litho: Expose & Aligner: MLA2 & Mask: gate\_electrode. Laser: \qty{375}{\nano\meter}. Dose: \qty[per-mode=symbol]{450}{\milli\joule\per\centi\meter\squared}. Defocus: 0. Mode: Quality. & TEST exposure. \\
+  7.3 & Backside litho: Develop & Developer: TMAH UV-lithography & Sequence 3001: PEB \qty{60}{\second} @ \qty{110}{\degreeCelsius}, SP \qty{60}{\second} & \\
+  7.4 & Litho inspection & Optical microscope & Check pattern and alignment marks & \\
+  7.5 & Gate metal deposition & Temescal/E-beam & Ti: \qty{100}{\nano\meter} & \\
+  7.6 & Gate metal deposition & Temescal/E-beam & Al: \qty{400}{\nano\meter} & \\
+  7.7 & Lift-off & Wet bench 07 & & \\
+  7.8 & Post-lift-off inspection & Optical microscope & & Check pattern and alignment marks. \\
+  7.9 & Contact anneal & RTP2 Jipelec & Recipe: ??; Temp: ??; Time: ?? & Stabilizes the metal-silicon contact. \\
+  \bottomrule
 \end{longtblr}
-
 
 % === TROUBLESHOOTING ===
 \section{Critical Checks}
@@ -177,77 +169,64 @@ Step & QC Verification \\
 }
 ID & Step & Description \\
 
-0 & 0.1 &
+1 & 1.3 &
 \begin{minipage}{\linewidth}
     \centering
-    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap/moscap_step_0-1.pdf}}\\[2pt]
-    LOCOS isolation (optional)
-\end{minipage} \\
-
-1 & 1.1 &
-\begin{minipage}{\linewidth}
-    \centering
-    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap/moscap_step_1-1.pdf}}\\[2pt]
-    Pre-oxidation clean (HF-last)
-\end{minipage} \\
-
-2 & 2.1 &
-\begin{minipage}{\linewidth}
-    \centering
-    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap/moscap_step_2-1.pdf}}\\[2pt]
+    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap_steps/moscap_step_1-3.pdf}}\\[2pt]
     Gate oxide growth
 \end{minipage} \\
 
-3 & 3.1 &
+2 & 2.2 &
 \begin{minipage}{\linewidth}
     \centering
-    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap/moscap_step_3-1.pdf}}\\[2pt]
+    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap_steps/moscap_step_2-2.pdf}}\\[2pt]
     Poly-Si deposition (blanket)
 \end{minipage} \\
 
-4 & 3.2 &
+3 & 3.2 &
 \begin{minipage}{\linewidth}
     \centering
-    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap/moscap_step_3-2.pdf}}\\[2pt]
-    Poly doping + anneal
+    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap_steps/moscap_step_3-2.pdf}}\\[2pt]
+    Poly-Si anneal (doped)
 \end{minipage} \\
 
-5 & 4.1 &
+4 & 4.2 &
 \begin{minipage}{\linewidth}
     \centering
-    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap/moscap_step_4-1.pdf}}\\[2pt]
-    Gate patterning + top pad
-\end{minipage} \\
-
-6 & 5.0 &
-\begin{minipage}{\linewidth}
-    \centering
-    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap/moscap_step_5-0.pdf}}\\[2pt]
+    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap_steps/moscap_step_4-2.pdf}}\\[2pt]
     Backside oxide strip
 \end{minipage} \\
 
-7 & 5.1 &
+5 & 6.6 &
 \begin{minipage}{\linewidth}
     \centering
-    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap/moscap_step_5-1.pdf}}\\[2pt]
+    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap_steps/moscap_step_6-6.pdf}}\\[2pt]
+    Gate poly etch
+\end{minipage} \\
+
+6 & 7.5 &
+\begin{minipage}{\linewidth}
+    \centering
+    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap_steps/moscap_step_7-5.pdf}}\\[2pt]
     Backside Ti deposition
 \end{minipage} \\
 
-8 & 5.2 &
+7 & 7.6 &
 \begin{minipage}{\linewidth}
     \centering
-    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap/moscap_step_5-2.pdf}}\\[2pt]
+    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap_steps/moscap_step_7-6.pdf}}\\[2pt]
     Backside Al deposition
 \end{minipage} \\
 
-9 & 5.3 &
+8 & 7.9 &
 \begin{minipage}{\linewidth}
     \centering
-    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap/moscap_step_5-3.pdf}}\\[2pt]
+    \resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/moscap_steps/moscap_step_7-9.pdf}}\\[2pt]
     Contact anneal
 \end{minipage} \\
 
 \end{longtblr}
+
 
 
 \end{document}
