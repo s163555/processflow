@@ -90,6 +90,7 @@ def draw_step(ax, step_id, step_desc,
 
 # --- Key process steps ---
 steps = [
+    ("1.1", "Start: Clean Si wafer", dict()),
     ("1.3", "Gate oxide growth", dict(show_oxide=True)),
     ("2.2", "Poly-Si deposition (blanket)", dict(show_oxide=True, show_poly=True)),
     ("3.2", "Poly-Si anneal (doped)", dict(show_oxide=True, show_poly=True, poly_doped=True)),
