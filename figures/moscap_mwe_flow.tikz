@@ -2,20 +2,20 @@
 
 \tikzset{
     process/.style = {rectangle, rounded corners,
-        minimum width=4cm, minimum height=1cm,
-        text centered, draw=black, fill=blue!10},
+        minimum width=3.8cm, minimum height=0.9cm,
+        text centered, draw=black, fill=blue!10, font=\footnotesize},
     optional/.style = {rectangle, rounded corners,
-        minimum width=4cm, minimum height=1cm,
-        text centered, draw=black, fill=gray!15, dashed},
+        minimum width=3.8cm, minimum height=0.9cm,
+        text centered, draw=black, fill=gray!15, dashed, font=\footnotesize},
     inspection/.style = {rectangle, rounded corners,
-        minimum width=4cm, minimum height=1cm,
-        text centered, draw=black, fill=green!10},
+        minimum width=3.8cm, minimum height=0.9cm,
+        text centered, draw=black, fill=green!10, font=\footnotesize},
     toolprep/.style = {rectangle, rounded corners,
-        minimum width=4cm, minimum height=0.8cm,
-        text centered, draw=black, fill=orange!10, font=\small},
+        minimum width=3.8cm, minimum height=0.7cm,
+        text centered, draw=black, fill=orange!10, font=\scriptsize},
     arrow/.style = {thick,->,>=stealth}
 }
-\begin{tikzpicture}[node distance=0.5cm]
+\begin{tikzpicture}[node distance=0.45cm]
 
 % ========== COLUMN 1 ==========
 % Dry-Ox Group
@@ -33,47 +33,47 @@
 \node (step4a) [optional, below=of step3b] {3.1: Pre-clean (optional)};
 \node (step4) [process, below=of step4a] {3.2: Poly-Si anneal};
 
-% DRIE Backside Group
-\node (step5) [toolprep, below=of step4] {4.1: DRIE tool prep};
-\node (step6) [process, below=of step5] {4.2: Backside Si etch};
-\node (step6a) [toolprep, below=of step6] {4.3: DRIE tool clean};
+% Etch Gate Poly Group - Part 1
+\node (step5) [process, below=of step4] {4.1: Gate litho - Coat};
+\node (step6) [process, below=of step5] {4.2: Gate litho - Expose};
+\node (step7) [process, below=of step6] {4.3: Gate litho - Develop};
+\node (step7a) [inspection, below=of step7] {4.4: Litho inspection};
+\node (step8) [toolprep, below=of step7a] {4.5: DRIE tool prep};
+\node (step9) [process, below=of step8] {4.6: Gate poly etch};
+
 
 % Group Labels for Column 1
 \node[left=0.1cm of step1, font=\bfseries\small] {1 Dry-Ox};
 \node[left=0.1cm of step3a, font=\bfseries\small] {2 Poly-Si};
 \node[left=0.1cm of step4a, font=\bfseries\small] {3 Anneal};
-\node[left=0.1cm of step5, font=\bfseries\small] {4 DRIE Backside};
-
+\node[left=0.1cm of step5, font=\bfseries\small] {4 Etch Gate Poly};
 
 % ========== COLUMN 2 ==========
 % Start Column 2 to the right of Column 1
-% Etch Gate Poly Group
-\node (step7) [process, right=6.5cm of step1] {5.1: Backside oxide etch};
-\node (step8) [process, below=of step7] {6.1: Gate litho - Coat};
-\node (step9) [process, below=of step8] {6.2: Gate litho - Expose};
-\node (step10) [process, below=of step9] {6.3: Gate litho - Develop};
-\node (step10a) [inspection, below=of step10] {6.4: Litho inspection};
-\node (step11) [toolprep, below=of step10a] {6.5: DRIE tool prep};
-\node (step12) [process, below=of step11] {6.6: Gate poly etch};
-\node (step12a) [toolprep, below=of step12] {6.7: DRIE tool clean};
-\node (step13) [inspection, below=of step12a] {6.8: Etch inspection};
-\node (step14) [process, below=of step13] {6.9: Resist strip};
-\node (step14a) [inspection, below=of step14] {6.10: Final inspection};
+% Etch Gate Poly Group - Part 2
+\node (step9a) [toolprep, right=5.5cm of step1] {4.7: DRIE tool clean};
+\node (step10) [inspection, below=of step9a] {4.8: Etch inspection};
+\node (step11) [process, below=of step10] {4.9: Resist strip};
+\node (step11a) [inspection, below=of step11] {4.10: Final inspection};
 
-% Metallization Group
-%\node (step15) [process, below=of step14a] {7.1: Metal litho - Coat};
-%\node (step16) [process, below=of step15] {7.2: Metal litho - Expose};
-%\node (step17) [process, below=of step16] {7.3: Metal litho - Develop};
-%\node (step17a) [inspection, below=of step17] {7.4: Litho inspection};
-%\node (step18) [process, below=of step17a] {7.5: Metal dep. (Ti/Al)};
-%\node (step19) [process, below=of step18] {7.6: Lift-off};
-%\node (step19a) [inspection, below=of step19] {7.7: Post-lift-off inspect};
-%\node (step20) [process, below=of step19a] {7.8: Contact anneal};
+% Backside preparation
+\node (step12) [process, below=of step11a] {5.1: Backside oxide etch};
+
+% Backside electrode Group
+\node (step13) [process, below=of step12] {6.1: Backside litho - Coat};
+\node (step14) [process, below=of step13] {6.2: Backside litho - Expose};
+\node (step15) [process, below=of step14] {6.3: Backside litho - Develop};
+\node (step15a) [inspection, below=of step15] {6.4: Litho inspection};
+\node (step16) [process, below=of step15a] {6.5: Ti deposition};
+\node (step17) [process, below=of step16] {6.6: Al deposition};
+\node (step18) [process, below=of step17] {6.7: Lift-off};
+\node (step18a) [inspection, below=of step18] {6.8: Post-lift-off inspect};
+\node (step19) [process, below=of step18a] {6.9: Contact anneal};
 
 % Group Labels for Column 2
-\node[above=0.1cm of step7, font=\bfseries\small] {5 Oxide Etch};
-\node[left=0.1cm of step8, font=\bfseries\small] {6 Etch Gate Poly};
-%\node[above=0.1cm of step15, font=\bfseries\small] {Metallization};
+\node[above=0.1cm of step9a, font=\bfseries\small] {4 Etch Gate Poly};
+\node[left=0.1cm of step12, font=\bfseries\small] {5 Backside prep};
+\node[left=0.1cm of step13, font=\bfseries\small] {6 Backside electrode};
 
 % ========== ARROWS ==========
 % Arrows in Column 1
@@ -87,37 +87,29 @@
 \draw [arrow] (step4a) -- (step4);
 \draw [arrow] (step4) -- (step5);
 \draw [arrow] (step5) -- (step6);
-\draw [arrow] (step6) -- (step6a);
-%\draw [arrow] (step6a) -- (step7);
+\draw [arrow] (step6) -- (step7);
+\draw [arrow] (step7) -- (step7a);
+\draw [arrow] (step7a) -- (step8);
+\draw [arrow] (step8) -- (step9);
+%\draw [arrow] (step9) -- (step9a);
 
 % Arrows in Column 2
-\draw [arrow] (step7) -- (step8);
-\draw [arrow] (step8) -- (step9);
-\draw [arrow] (step9) -- (step10);
-\draw [arrow] (step10) -- (step10a);
-\draw [arrow] (step10a) -- (step11);
-\draw [arrow] (step11) -- (step12);
-\draw [arrow] (step12) -- (step12a);
-\draw [arrow] (step12a) -- (step13);
+\draw [arrow] (step9a) -- (step10);
+\draw [arrow] (step10) -- (step11);
+\draw [arrow] (step11) -- (step11a);
+\draw [arrow] (step11a) -- (step12);
+\draw [arrow] (step12) -- (step13);
 \draw [arrow] (step13) -- (step14);
-\draw [arrow] (step14) -- (step14a);
-%\draw [arrow] (step14a) -- (step15);
-%\draw [arrow] (step15) -- (step16);
-%\draw [arrow] (step16) -- (step17);
-%\draw [arrow] (step17) -- (step17a);
-%\draw [arrow] (step17a) -- (step18);
-%\draw [arrow] (step18) -- (step19);
-%\draw [arrow] (step19) -- (step19a);
-%\draw [arrow] (step19a) -- (step20);
+\draw [arrow] (step14) -- (step15);
+\draw [arrow] (step15) -- (step15a);
+\draw [arrow] (step15a) -- (step16);
+\draw [arrow] (step16) -- (step17);
+\draw [arrow] (step17) -- (step18);
+\draw [arrow] (step18) -- (step18a);
+\draw [arrow] (step18a) -- (step19);
 
-% ========== CONNECTING ARROW ==========
-% Draw an arrow from the last node in Column 1 to the first node in Column 2
-%\draw [arrow] (step7.east) -- ++(1.5, 0) -- ++(0, 12) -- ($(step8.west) + (0, 0)$); 
-% The ($(step8.west) + (0, 0)$) part is a precise coordinate calculation using the TikZ 'calc' library (implicitly loaded by positioning).
-
-% Alternatively, a simpler connecting arrow without the calc library:
- %\draw [arrow] (step7.east) -- ++(2,0) |- (step8.west); 
- \draw [arrow] (step6a.east) -- ++(2,0) |- (step7.west); 
-% This creates a right-angle connector. The '++(2,0)' moves right, '|-' means vertical then horizontal line to (step8.west).
+% ========== CONNECTING ARROWS ==========
+% Connect from Column 1 to Column 2 (within Step 4)
+\draw [arrow] (step9.east) -- ++(1,0) |- (step9a.west);
 
 \end{tikzpicture}
