@@ -93,11 +93,11 @@ steps = [
     ("1.3", "Gate oxide growth", dict(show_oxide=True)),
     ("2.2", "Poly-Si deposition (blanket)", dict(show_oxide=True, show_poly=True)),
     ("3.2", "Poly-Si anneal (doped)", dict(show_oxide=True, show_poly=True, poly_doped=True)),
-    ("4.2", "Backside oxide strip", dict(show_oxide=True, show_poly=True, poly_doped=True, substrate_thinned=True)),
-    ("6.6", "Gate poly etch", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, substrate_thinned=True)),
-    ("7.5", "Backside Ti deposition", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, substrate_thinned=True, show_ti=True)),
-    ("7.6", "Backside Al deposition", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, substrate_thinned=True, show_ti=True, show_al=True)),
-    ("7.9", "Contact anneal", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, substrate_thinned=True, show_ti=True, show_al=True, annealed=True)),
+    ("4.6", "Gate poly etch", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True)),
+    ("5.1", "Backside oxide strip", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, substrate_thinned=True)),
+    ("6.5", "Backside Ti deposition", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, substrate_thinned=True, show_ti=True)),
+    ("6.6", "Backside Al deposition", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, substrate_thinned=True, show_ti=True, show_al=True)),
+    ("6.9", "Contact anneal", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, substrate_thinned=True, show_ti=True, show_al=True, annealed=True)),
 ]
 
 # --- Output folder ---
