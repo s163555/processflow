@@ -5,18 +5,21 @@ import os
 # --- Drawing helper ---
 def draw_step(ax, step_id, step_desc,
               show_oxide=False, show_poly=False, patterned=False,
-              poly_doped=False,
-              substrate_thinned=False,
-              show_ti=False, show_al=False,
-              annealed=False):
+              poly_doped=False, backside_poly_etched=False,
+              backside_oxide_etched=False,
+              show_ti=False, show_al=False, annealed=False):
 
     # Geometry constants
     W = 8.0
-    H_sub = 1.0 if not substrate_thinned else 0.5
+    H_sub = 1.0
     H_ox = 0.2 if show_oxide else 0
     H_poly = 0.4 if show_poly else 0
     H_ti = 0.15 if show_ti else 0
     H_al = 0.25 if show_al else 0
+    
+    # Backside layer thicknesses (thinner than frontside)
+    H_ox_back = 0.1 if show_oxide else 0
+    H_poly_back = 0.2 if show_poly else 0
 
     # --- Substrate ---
     ax.add_patch(Rectangle((0, 0), W, H_sub,
@@ -24,69 +27,96 @@ def draw_step(ax, step_id, step_desc,
     ax.text(W/2, H_sub/2, "p-type Si substrate",
             ha='center', va='center', fontsize=10)
 
+    # --- Backside oxide (if not etched) ---
+    y_back = 0
+    if show_oxide and not backside_oxide_etched:
+        ax.add_patch(Rectangle((0, y_back - H_ox_back), W, H_ox_back,
+                               facecolor="#e6e6ff", edgecolor="black"))
+        #ax.text(W/2, y_back - H_ox_back/2, "Backside oxide\n(35 nm)",
+                #ha='center', va='center', fontsize=8)
+
+    # --- Backside poly-Si (if not etched) ---
+    y_poly_back = y_back - H_ox_back if show_oxide and not backside_oxide_etched else y_back
+    if show_poly and not backside_poly_etched:
+        ax.add_patch(Rectangle((0, y_poly_back - H_poly_back), W, H_poly_back,
+                               facecolor="#999999", edgecolor="black"))
+        #ax.text(W/2, y_poly_back - H_poly_back/2, "Backside poly-Si",
+                #ha='center', va='center', fontsize=8, color='white')
+
     # --- Gate oxide ---
-    y_ox = H_sub
+    y_ox_top = H_sub
     if show_oxide:
-        ax.add_patch(Rectangle((0, y_ox), W, H_ox,
+        ax.add_patch(Rectangle((0, y_ox_top), W, H_ox,
                                facecolor="#ccccff", edgecolor="black"))
-        ax.text(W/2, y_ox + H_ox/2, "Gate oxide (35 nm SiO₂)",
+        ax.text(W/2, y_ox_top + H_ox/2, "Gate oxide (35 nm SiO₂)",
                 ha='center', va='center', fontsize=10)
 
     # --- Poly-Si ---
-    y_poly = y_ox + H_ox
+    y_poly_top = y_ox_top + H_ox
     if show_poly:
         if patterned:
             gate_w = 4.0
             gate_x = (W - gate_w)/2
-            ax.add_patch(Rectangle((gate_x, y_poly), gate_w, H_poly,
+            ax.add_patch(Rectangle((gate_x, y_poly_top), gate_w, H_poly,
                                    facecolor="#777777" if poly_doped else "#999999",
                                    edgecolor="black"))
             label = "n⁺ polysilicon gate" if poly_doped else "Polysilicon gate"
-            ax.text(W/2, y_poly + H_poly/2, label,
+            ax.text(W/2, y_poly_top + H_poly/2, label,
                     ha='center', va='center', fontsize=10, color='white')
         else:
-            ax.add_patch(Rectangle((0, y_poly), W, H_poly,
+            ax.add_patch(Rectangle((0, y_poly_top), W, H_poly,
                                    facecolor="#777777" if poly_doped else "#999999",
                                    edgecolor="black"))
             label = "n⁺ polysilicon (blanket)" if poly_doped else "Polysilicon (blanket)"
-            ax.text(W/2, y_poly + H_poly/2, label,
+            ax.text(W/2, y_poly_top + H_poly/2, label,
                     ha='center', va='center', fontsize=10, color='white')
 
     # --- Backside Ti ---
-    y_back = 0
+    y_back_metal = -0.1
     if show_ti:
-        ax.add_patch(Rectangle((0, y_back - H_ti), W, H_ti,
+        # Position Ti layer below any remaining backside films or directly on substrate
+        y_ti = y_poly_back - H_poly_back if show_poly and not backside_poly_etched else y_back
+        y_ti = y_ti - H_ox_back if show_oxide and not backside_oxide_etched else y_ti
+        
+        ax.add_patch(Rectangle((0, y_ti - H_ti), W, H_ti,
                                facecolor="#9999cc", edgecolor="black"))
-        ax.text(W/2, y_back - H_ti/2, "Backside Ti (100 nm)",
+        ax.text(W/2, y_ti - H_ti/2, "Backside Ti (100 nm)",
                 ha='center', va='center', fontsize=9)
-        y_back += H_ti
 
     # --- Backside Al ---
-    y_al = y_back - H_ti
     if show_al:
+        # Position Al layer below Ti layer
+        y_al = y_ti - H_ti if show_ti else y_back_metal
+        
         if annealed:
-            ax.add_patch(Rectangle((0, y_al - H_al - H_ti), W, H_al,
-            facecolor="#cccccc", edgecolor="black", hatch="////"))
-            ax.text(W/2, y_al - H_ti - H_al/2, "Backside Al (400 nm, annealed)",
-                ha='center', va='center', fontsize=9, fontweight='bold',
-                bbox=dict(facecolor="white", edgecolor="none", alpha=0.7))
-            #ax.text(W/2, -0.15, "Ohmic contact formed",
-                #ha='center', va='top', fontsize=9, fontweight='bold')
+            ax.add_patch(Rectangle((0, y_al - H_al), W, H_al,
+                                   facecolor="#cccccc", edgecolor="black", hatch="////"))
+            ax.text(W/2, y_al - H_al/2, "Backside Al (400 nm, annealed)",
+                    ha='center', va='center', fontsize=9, 
+                    bbox=dict(facecolor="white", edgecolor="none", alpha=0.7))
         else:
-            ax.add_patch(Rectangle((0, y_al - H_al - H_ti), W, H_al,
+            ax.add_patch(Rectangle((0, y_al - H_al), W, H_al,
                                    facecolor="#cccccc", edgecolor="black"))
-            ax.text(W/2, y_al - H_ti - H_al/2, "Backside Al (400 nm)",
+            ax.text(W/2, y_al - H_al/2, "Backside Al (400 nm)",
                     ha='center', va='center', fontsize=9)
 
     # --- Figure limits ---
     top_y = H_sub + H_ox + H_poly
+    bottom_y = -0.5  # Fixed bottom limit
+    
+    # Adjust bottom limit if backside layers extend below
+    if show_oxide and not backside_oxide_etched:
+        bottom_y = min(bottom_y, -H_ox_back - 0.1)
+    if show_poly and not backside_poly_etched:
+        bottom_y = min(bottom_y, -H_ox_back - H_poly_back - 0.1)
+    if show_ti:
+        bottom_y = min(bottom_y, -H_ti - 0.1)
+    if show_al:
+        bottom_y = min(bottom_y, -H_ti - H_al - 0.1)
+    
     ax.set_xlim(-0.5, W + 0.5)
-    ax.set_ylim(-0.5, top_y + 1.0)
+    ax.set_ylim(bottom_y, top_y + 0.5)
     ax.axis('off')
-
-    # --- Title ---
-    #ax.set_title(f"{step_id} — {step_desc}", fontsize=12, pad=8)
-
 
 # --- Key process steps ---
 steps = [
@@ -94,11 +124,20 @@ steps = [
     ("1.3", "Gate oxide growth", dict(show_oxide=True)),
     ("2.2", "Poly-Si deposition (blanket)", dict(show_oxide=True, show_poly=True)),
     ("3.2", "Poly-Si anneal (doped)", dict(show_oxide=True, show_poly=True, poly_doped=True)),
-    ("4.6", "Gate poly etch", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True)),
-    ("5.1", "Backside oxide strip", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, substrate_thinned=True)),
-    ("6.5", "Backside Ti deposition", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, substrate_thinned=True, show_ti=True)),
-    ("6.6", "Backside Al deposition", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, substrate_thinned=True, show_ti=True, show_al=True)),
-    ("6.9", "Contact anneal", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, substrate_thinned=True, show_ti=True, show_al=True, annealed=True)),
+    ("4.2", "Backside poly-Si etch", dict(show_oxide=True, show_poly=True, poly_doped=True, 
+                                         backside_poly_etched=True)),
+    ("5.1", "Backside oxide etch", dict(show_oxide=True, show_poly=True, poly_doped=True, 
+                                       backside_poly_etched=True, backside_oxide_etched=True)),
+    ("6.6", "Gate poly etch", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, 
+                                  backside_poly_etched=True, backside_oxide_etched=True)),
+    ("7.5", "Backside Ti deposition", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, 
+                                         backside_poly_etched=True, backside_oxide_etched=True, show_ti=True)),
+    ("7.6", "Backside Al deposition", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, 
+                                         backside_poly_etched=True, backside_oxide_etched=True, 
+                                         show_ti=True, show_al=True)),
+    ("7.9", "Contact anneal", dict(show_oxide=True, show_poly=True, patterned=True, poly_doped=True, 
+                                  backside_poly_etched=True, backside_oxide_etched=True,
+                                  show_ti=True, show_al=True, annealed=True)),
 ]
 
 # --- Output folder ---
@@ -107,9 +146,12 @@ os.makedirs(out_dir, exist_ok=True)
 
 # --- Generate figures ---
 for sid, desc, params in steps:
-    fig, ax = plt.subplots(figsize=(8, 4))
+    fig, ax = plt.subplots(figsize=(8, 5))
     fig.patch.set_alpha(0.0)  # transparent background
     draw_step(ax, sid, desc, **params)
+    
+    # Add step title
+    #ax.set_title(f"{sid} — {desc}", fontsize=12, pad=10)
 
     base_filename = os.path.join(out_dir, f"moscap_step_{sid.replace('.', '-')}")
     fig.savefig(f"{base_filename}.png", dpi=200, bbox_inches="tight", transparent=True)

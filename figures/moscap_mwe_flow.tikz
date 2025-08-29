@@ -33,47 +33,53 @@
 \node (step4a) [optional, below=of step3b] {3.1: Pre-clean (optional)};
 \node (step4) [process, below=of step4a] {3.2: Poly-Si anneal};
 
+% Backside Poly-Si Etch Group
+\node (step5) [toolprep, below=of step4] {4.1: DRIE tool prep};
+\node (step6) [process, below=of step5] {4.2: Backside poly etch};
+\node (step6a) [toolprep, below=of step6] {4.3: DRIE tool clean};
+
+% Backside Oxide Etch Group
+\node (step7) [process, below=of step6a] {5.1: Backside oxide etch};
+
 % Etch Gate Poly Group - Part 1
-\node (step5) [process, below=of step4] {4.1: Gate litho - Coat};
-\node (step6) [process, below=of step5] {4.2: Gate litho - Expose};
-\node (step7) [process, below=of step6] {4.3: Gate litho - Develop};
-\node (step7a) [inspection, below=of step7] {4.4: Litho inspection};
-\node (step8) [toolprep, below=of step7a] {4.5: DRIE tool prep};
-\node (step9) [process, below=of step8] {4.6: Gate poly etch};
+\node (step8) [process, below=of step7] {6.1: Gate litho - Coat};
+\node (step9) [process, below=of step8] {6.2: Gate litho - Expose};
+\node (step10) [process, below=of step9] {6.3: Gate litho - Develop};
 
 
 % Group Labels for Column 1
 \node[left=0.1cm of step1, font=\bfseries\small] {1 Dry-Ox};
 \node[left=0.1cm of step3a, font=\bfseries\small] {2 Poly-Si};
 \node[left=0.1cm of step4a, font=\bfseries\small] {3 Anneal};
-\node[left=0.1cm of step5, font=\bfseries\small] {4 Etch Gate Poly};
+\node[left=0.1cm of step5, font=\bfseries\small] {4 Backside Poly Etch};
+\node[left=0.1cm of step7, font=\bfseries\small] {5 Oxide Etch};
+\node[left=0.1cm of step8, font=\bfseries\small] {6 Gate Poly Etch};
 
 % ========== COLUMN 2 ==========
 % Start Column 2 to the right of Column 1
 % Etch Gate Poly Group - Part 2
-\node (step9a) [toolprep, right=5.5cm of step1] {4.7: DRIE tool clean};
-\node (step10) [inspection, below=of step9a] {4.8: Etch inspection};
-\node (step11) [process, below=of step10] {4.9: Resist strip};
-\node (step11a) [inspection, below=of step11] {4.10: Final inspection};
-
-% Backside preparation
-\node (step12) [process, below=of step11a] {5.1: Backside oxide etch};
+\node (step10a) [inspection, right=5.5cm of step1] {6.4: Litho inspection};
+\node (step11) [toolprep, below=of step10a] {6.5: DRIE tool prep};
+\node (step12) [process, below=of step11] {6.6: Gate poly etch};
+\node (step12a) [toolprep, below=of step12] {6.7: DRIE tool clean};
+\node (step13) [inspection, below=of step12a] {6.8: Etch inspection};
+\node (step14) [process, below=of step13] {6.9: Resist strip};
+\node (step14a) [inspection, below=of step14] {6.10: Final inspection};
 
 % Backside electrode Group
-\node (step13) [process, below=of step12] {6.1: Backside litho - Coat};
-\node (step14) [process, below=of step13] {6.2: Backside litho - Expose};
-\node (step15) [process, below=of step14] {6.3: Backside litho - Develop};
-\node (step15a) [inspection, below=of step15] {6.4: Litho inspection};
-\node (step16) [process, below=of step15a] {6.5: Ti deposition};
-\node (step17) [process, below=of step16] {6.6: Al deposition};
-\node (step18) [process, below=of step17] {6.7: Lift-off};
-\node (step18a) [inspection, below=of step18] {6.8: Post-lift-off inspect};
-\node (step19) [process, below=of step18a] {6.9: Contact anneal};
+\node (step15) [process, below=of step14a] {7.1: Backside litho - Coat};
+\node (step16) [process, below=of step15] {7.2: Backside litho - Expose};
+\node (step17) [process, below=of step16] {7.3: Backside litho - Develop};
+\node (step17a) [inspection, below=of step17] {7.4: Litho inspection};
+\node (step18) [process, below=of step17a] {7.5: Ti deposition};
+\node (step19) [process, below=of step18] {7.6: Al deposition};
+\node (step20) [process, below=of step19] {7.7: Lift-off};
+\node (step20a) [inspection, below=of step20] {7.8: Post-lift-off inspect};
+\node (step21) [process, below=of step20a] {7.9: Contact anneal};
 
 % Group Labels for Column 2
-\node[above=0.1cm of step9a, font=\bfseries\small] {4 Etch Gate Poly};
-\node[left=0.1cm of step12, font=\bfseries\small] {5 Backside prep};
-\node[left=0.1cm of step13, font=\bfseries\small] {6 Backside electrode};
+\node[above=0.1cm of step10a, font=\bfseries\small] {6 Gate Poly Etch};
+\node[left=0.1cm of step15, font=\bfseries\small] {7 Backside Electrode};
 
 % ========== ARROWS ==========
 % Arrows in Column 1
@@ -87,29 +93,32 @@
 \draw [arrow] (step4a) -- (step4);
 \draw [arrow] (step4) -- (step5);
 \draw [arrow] (step5) -- (step6);
-\draw [arrow] (step6) -- (step7);
-\draw [arrow] (step7) -- (step7a);
-\draw [arrow] (step7a) -- (step8);
+\draw [arrow] (step6) -- (step6a);
+\draw [arrow] (step6a) -- (step7);
+\draw [arrow] (step7) -- (step8);
 \draw [arrow] (step8) -- (step9);
-%\draw [arrow] (step9) -- (step9a);
+\draw [arrow] (step9) -- (step10);
+%\draw [arrow] (step10) -- (step10a);
+
 
 % Arrows in Column 2
-\draw [arrow] (step9a) -- (step10);
-\draw [arrow] (step10) -- (step11);
-\draw [arrow] (step11) -- (step11a);
-\draw [arrow] (step11a) -- (step12);
-\draw [arrow] (step12) -- (step13);
+\draw [arrow] (step10a) -- (step11);
+\draw [arrow] (step11) -- (step12);
+\draw [arrow] (step12a) -- (step13);
 \draw [arrow] (step13) -- (step14);
-\draw [arrow] (step14) -- (step15);
-\draw [arrow] (step15) -- (step15a);
-\draw [arrow] (step15a) -- (step16);
+\draw [arrow] (step14) -- (step14a);
+\draw [arrow] (step14a) -- (step15);
+\draw [arrow] (step15) -- (step16);
 \draw [arrow] (step16) -- (step17);
-\draw [arrow] (step17) -- (step18);
-\draw [arrow] (step18) -- (step18a);
-\draw [arrow] (step18a) -- (step19);
+\draw [arrow] (step17) -- (step17a);
+\draw [arrow] (step17a) -- (step18);
+\draw [arrow] (step18) -- (step19);
+\draw [arrow] (step19) -- (step20);
+\draw [arrow] (step20) -- (step20a);
+\draw [arrow] (step20a) -- (step21);
 
 % ========== CONNECTING ARROWS ==========
-% Connect from Column 1 to Column 2 (within Step 4)
-\draw [arrow] (step9.east) -- ++(1,0) |- (step9a.west);
+% Connect from Column 1 to Column 2 (within Step 6)
+\draw [arrow] (step10.east) -- ++(1,0) |- (step10a.west);
 
 \end{tikzpicture}
