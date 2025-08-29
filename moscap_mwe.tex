@@ -92,7 +92,7 @@ Back contact & Al & \qty{400}{\nano\meter} \\
   \midrule
   \textbf{\Large2} & \SetCell[c=4]{c, font=\bfseries\Large} Poly-Si & & & \\
   2.1 & Pre-deposition clean & RCA bench & Standard RCA clean & Required if wafers were stored after Step 1. \\
-  2.2 & Poly-Si deposition & Furnace: LPCVD Poly-Si (6") E2 & \SetCell{m} Recipe: DOPEPOLY \newline Deposition time: \qty{2}{\hour} & Target thickness: \qty{400}{\nano\meter}. \\
+  2.2 & Poly-Si deposition & Furnace: LPCVD Poly-Si (6") E2 & \SetCell{m} Recipe: POLYBOR \newline Deposition time: \qty{2}{\hour} \newline Target thickness: \qty{400}{\nano\meter}. & ATT: Requires extensive equipment prep. \\
   2.3 & Inspection & Filmtek / Ellipsometer & & Verify poly-Si thickness. \\
   \midrule
   \textbf{\Large3} & \SetCell[c=4]{c, font=\bfseries\Large} Anneal Poly-Si & & & \\
@@ -101,22 +101,26 @@ Back contact & Al & \qty{400}{\nano\meter} \\
   \midrule
   \textbf{\Large4} & \SetCell[c=4]{c, font=\bfseries\Large} Backside Poly-Si etch & & & \\
   4.1 & DRIE tool preparation & DRIE -- Pegasus 3 & Recipe: TDESC, \qty{5}{\minute} & Chamber conditioning step. \\
-  4.2 & Backside poly-Si etch & DRIE -- Pegasus 3 & Recipe: ??; Cycles: ?? & Removes blanket poly-Si from backside. \\
+  4.2 & Backside poly-Si etch & DRIE -- Pegasus 3 & Recipe: \texttt{SF6\_02\_250W\_0.7\_0.3} & Removes blanket poly-Si from backside. \\
   4.3 & DRIE tool clean & DRIE -- Pegasus 3 & Recipe: 20 min stabilization + \qty{10}{\minute} clean & Post-process chamber cleaning. \\
+  % Alternative: Wet Poly Etch
+  % 4.2 & Backside poly-Si etch & Wet bench 05: Poly etch & Etch time: \qty{15}{\minute} (etch rate \qty{100}{\nano\meter\per\minute}) & Removes blanket poly-Si from backside. \\
+  % 4.3 & Rinse & Wet bench 05: DI water & \qty{5}{\minute} rinse & \\
   \midrule
   \textbf{\Large5} & \SetCell[c=4]{c, font=\bfseries\Large} Backside oxide etch & & & \\
   5.1 & Backside oxide etch & Wet bench 04: BHF 2 & \qty{40}{\second} (etch rate \qtyrange[per-mode=symbol]{75}{80}{\nano\meter\per\minute}) & Removes backside oxide (\qty{35}{\nano\meter}) prior to metal deposition. \\
   \midrule
   \textbf{\Large6} & \SetCell[c=4]{c, font=\bfseries\Large} Etch gate Poly-Si & & & \\
   6.1 & Lithography: Coat & Spin Coater: Gamma UV & \SetCell{m} Sequence 1611: \qty{1.5}{\micro\meter} HMDS resist. \newline Spin: \qty{30}{\second} @ $4600~\mathrm{rpm}$. \newline Softbake: \qty{90}{\second} @ \qty{90}{\degreeCelsius}. & \\
-  6.2 & Lithography: Expose & Aligner: MLA2 & \SetCell{m} Mask: gate\_poly. \newline Laser: \qty{375}{\nano\meter}. \newline Dose: \qty[per-mode=symbol]{325}{\milli\joule\per\centi\meter\squared}. \newline Defocus: 2. \newline Mode: Quality. & TEST exposure. \\
+  6.2 & Lithography: Expose & Aligner: MLA2 & \SetCell{m} Mask: gate\_poly. \newline Laser: \qty{375}{\nano\meter}. \newline Dose: \qty[per-mode=symbol]{325}{\milli\joule\per\centi\meter\squared}. \newline Defocus: 2. \newline Mode: Quality. & Invert polarity. \\
   6.3 & Lithography: Develop & Developer: TMAH UV-lithography & Sequence 3001: PEB \qty{60}{\second} @ \qty{100}{\degreeCelsius}, SP \qty{60}{\second}. & \\
   6.4 & Inspection & Optical microscope & Check gate pattern and alignment marks & \\
   6.5 & DRIE tool preparation & DRIE -- Pegasus 3 & Recipe: TDESC for \qty{5}{\minute} & Chamber conditioning step. \\
-  6.6 & Poly-Si etch & DRIE -- Pegasus 3 & \SetCell{m} Recipe: ?? \newline Cycles: ?? & Etches the \qty{400}{\nano\meter} poly-Si layer. \\
+  6.6 & Poly-Si etch & DRIE -- Pegasus 3 & Recipe: \texttt{SF6\_02\_250W\_0.7\_0.3} & Etches the \qty{400}{\nano\meter} poly-Si layer. \\
   6.7 & DRIE tool clean & DRIE -- Pegasus 3 & Recipe: 20 min stabilization + \qty{10}{\minute} clean & Post-process chamber cleaning. \\
   6.8 & Inspection & DekTak & Check step height & Verify poly-Si is etched through. \\
-  6.9 & Resist strip & Wet bench 06 & Strip time: ?? & \\
+  % 6.8A Ellipsometer (standard recipe) due to resist thickness delta impacting DekTak accuracy \\
+  6.9 & Resist strip & Wet bench 06 & Strip time: \qty{10}{\minute} & \\
   6.10 & Final gate inspection & DekTak & Measure heights and widths & Verify critical dimensions (CD). \\
   \midrule
   \textbf{\Large7} & \SetCell[c=4]{c, font=\bfseries\Large} Backside electrode & & & \\
@@ -124,11 +128,12 @@ Back contact & Al & \qty{400}{\nano\meter} \\
   7.2 & Lithography: Expose & Aligner: MLA2 & \SetCell{m}{ Mask: gate\_electrode. \newline Laser: \qty{375}{\nano\meter}. \newline Dose: \qty[per-mode=symbol]{450}{\milli\joule\per\centi\meter\squared}. \newline Defocus: 0. \newline Mode: Quality. } & TEST exposure. \\
   7.3 & Lithography: Develop & Developer: TMAH UV-lithography & Sequence 3001: PEB \qty{60}{\second} @ \qty{110}{\degreeCelsius}, SP \qty{60}{\second} & \\
   7.4 & Inspection & Optical microscope & Check backside pattern and alignment marks & \\
+  % 7.5A & \emph{In-situ} sputter clean & Temescal & Argon sputter clean: \qty{5}{\minute} at \qty{5}{\milli\bar} & Removes native oxide prior to metal deposition. Optional, but recommended. \\
   7.5 & Metal deposition (Ti) & Temescal & Ti: \qty{100}{\nano\meter} & Serves as adhesion/barrier layer. \\
   7.6 & Metal deposition (Al) & Temescal & Al: \qty{400}{\nano\meter} & Main backside contact metal. \\
   7.7 & Lift-off & Wet bench 07 & & \\
   7.8 & Inspection: Post-lift-off & Optical microscope & & Check pattern and alignment marks. \\
-  7.9 & Contact anneal & RTP2 Jipelec & \SetCell{m} Recipe: ?? \newline Temp: ?? \newline Time: ?? & Stabilizes the Ti/Al Si contact. Avoid $\geq 450^\circ$C (Al spiking). \\
+  7.9 & Contact anneal & C4 Al-anneal & \SetCell{m} Standard recipe \newline \qty{20}{\minute} & Stabilizes the Ti/Al Si contact. Avoid $\geq \qty{450}{\degreeCelsius}$ (Al spiking). \\
   \bottomrule
 \end{longtblr}
 
