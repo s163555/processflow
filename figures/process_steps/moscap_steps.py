@@ -89,7 +89,7 @@ def draw_step(ax, step_id, step_desc,
 
     # --- Backside Al ---
     if show_al:
-        y_al = y_ti - H_ti if show_ti else y_back_metal
+        y_al = y_ti - H_ti if show_ti else 0
         if patterned_backside:
             elec_w = 4.0
             elec_x = (W - elec_w)/2
