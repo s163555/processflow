@@ -90,15 +90,15 @@ Optional pad metallization & Ni/Au & \qty{20}{\nano\meter} Ni + \qty{200}{\nano\
   \textbf{\Large1} & \SetCell[c=4]{c, font=\bfseries\Large} Wafer Prep and Oxide & & & \\
   1.1 & Incoming inspection & 4-point probe + thickness tool & Measure resistivity, bow, thickness & Verify starting wafer specs. \\
   1.2 & Pre-oxidation clean & RCA bench & Standard RCA clean & Required prior to oxidation. \\
-  1.3 & Thermal oxide growth & Furnace: Dry/Wet oxidation & \SetCell{m} Target: \qty{200}{\nano\meter} \newline Recipe: DRY1100 & Provides electrical isolation. \\
+  1.3 & Thermal oxide growth & Furnace: E1 oxidation & \SetCell{m} Target: \qty{200}{\nano\meter} \newline Recipe: DRY1100 & Provides electrical isolation. \\
   1.4 & Inspection & Ellipsometer & & Verify oxide thickness. \\
   \midrule
   \textbf{\Large2} & \SetCell[c=4]{c, font=\bfseries\Large} Lithography & & & \\
-  2.1 & Resist coat & Spin Coater: Gamma UV & \SetCell{m}{Resist: AZ 5214E \newline Spin: \qty{4000}{\mathrm{rpm}}, \qty{30}{\second} \newline Target thickness: \qty{1.4}{\micro\meter} \newline Softbake: \qty{110}{\degreeCelsius}, \qty{60}{\second}} & Provides base resist film. \\
-  2.2 & Pattern exposure & Maskless Aligner: MLA2 & \SetCell{m}{Mask: RTD layout \newline Dose: \qtyrange[per-mode=symbol]{60}{80}{\milli\joule\per\centi\meter\squared} \newline Wavelength: 375 nm} & Expose regions that should remain after lift-off. \\
-  2.3 & Reversal bake & Hotplate & \SetCell{m}{\qty{120}{\degreeCelsius}, \qty{120}{\second}} & Crosslinks initially exposed resist (becomes insoluble). \\
-  2.4 & Flood exposure & Maskless Aligner: MLA2 & \SetCell{m}{No mask, blanket exposure \newline Dose: \qty{150}{\milli\joule\per\centi\meter\squared}} & Reverses tone: unexposed areas become soluble. \\
-  2.5 & Develop & Developer bench & \SetCell{m}{Developer: AZ 726 MIF \newline Time: \qty{60}{\second}, gentle agitation \newline Rinse: DI water, \qty{30}{\second}} & Creates undercut profile for lift-off. \\
+  2.1 & Resist coat & Spin Coater: Gamma UV & \SetCell{m}{Resist: AZ 5214E \newline Spin: \qty{3000}{\mathrm{rpm}}, \qty{35}{\second} \newline Target thickness: \qty{2}{\micro\meter} \newline Softbake: \qty{110}{\degreeCelsius}, \qty{60}{\second}} & Provides base resist film. \\
+  2.2 & Pattern exposure & Maskless Aligner: MLA2 & \SetCell{m}{Mask: RTD layout \newline Dose: \qty[per-mode=symbol]{60}{\milli\joule\per\centi\meter\squared} \newline Wavelength: 375 nm} & Expose regions that should remain after lift-off. \\
+  2.3 & Image reversal bake & Hotplate & \SetCell{m}{\qty{120}{\degreeCelsius}, \qty{60}{\second}} & Crosslinks initially exposed resist (becomes insoluble). \\
+  2.4 & Flood exposure & Maskless Aligner: MLA2 & \SetCell{m}{No mask, blanket exposure \newline Dose: \qty[per-mode=symbol]{500}{\milli\joule\per\centi\meter\squared}} & Reverses tone: unexposed areas become soluble. \\
+  2.5 & Develop & TMAH UV-lithography & \SetCell{m}{Developer: AZ 726 MIF \newline Time: \qtyrange{60}{75}{\second}, gentle agitation \newline Rinse: DI water, \qty{30}{\second}} & Creates undercut profile for lift-off. \\
   \midrule
   \textbf{\Large3} & \SetCell[c=4]{c, font=\bfseries\Large} Metal Deposition & & & \\
   3.1 & Chamber prep & Temescal e-beam evaporator & Base pressure $\le \qty{1e-6}{\milli\bar}$ & Lift-off friendly. \\
@@ -110,7 +110,7 @@ Optional pad metallization & Ni/Au & \qty{20}{\nano\meter} Ni + \qty{200}{\nano\
   4.2 & Rinse/Dry & IPA + N2 gun & & Inspect for clean edges, no flakes. \\
   \midrule
   \textbf{\Large5} & \SetCell[c=4]{c, font=\bfseries\Large} Post-processing (optional) & & & \\
-  5.1 & Optional anneal & Furnace: N$_2$ ambient & \qty{400}{\celsius}, \qty{1}{\hour} & Stabilizes Pt resistance. \\
+  5.1 & Optional anneal & C3 Furnace: N$_2$ ambient & \qty{400}{\celsius}, \qty{1}{\hour} & Stabilizes Pt resistance. \\
   5.2 & Optional pad metallization & Lithography + evaporator & Ni/Au stack & Improves bondability. \\
   5.3 & Final inspection & Optical microscope + 4-point probe & Measure sheet R, continuity & Target $R = \qty{100}{\ohm}$ at $\qty{0}{\degreeCelsius}$. \\
   \bottomrule
@@ -128,7 +128,7 @@ Step & QC Verification \\
 \midrule
 1.3 & Oxide thickness: \qty{200}{\nano\meter} $\pm$ \qty{10}{\nano\meter} (ellipsometer) \\
 2.2 & Lithography: line/space $\pm$ \qty{1}{\micro\meter} (optical inspection) \\
-3.3 & Pt thickness: \qty{100}{\nano\meter} $\pm$ \qty{5}{\nano\meter} (Dektak stylus profiler) \\
+3.3 & Pt thickness: \qty{100}{\nano\meter} $\pm$ \qty{5}{\nano\meter} (Dektak XTA stylus profiler) \\
 4.1 & Lift-off complete, no bridging (microscope) \\
 5.1 & Sheet resistance stable within 1\% after anneal (4-point probe) \\
 \bottomrule
