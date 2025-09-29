@@ -1,0 +1,200 @@
+\documentclass{article}
+\input{template.tex}
+
+% Override default metadata
+\renewcommand{\processflowtitle}{Pt100 Thin-Film RTD Process}
+\renewcommand{\processdescription}{A process flow for fabricating a Pt100 resistance temperature detector (RTD) on oxidized silicon, using Ti/Pt thin films patterned by lift-off.}
+\renewcommand{\revision}{Rev 0.1}
+\renewcommand{\contactemail}{jephin@dtu.dk}
+\renewcommand{\contactname}{Jeppe Hinrichs}
+\renewcommand{\contactphone}{Not applicable}
+\renewcommand{\labmanagergroup}{Not applicable}
+\renewcommand{\batchname}{TBD}
+\renewcommand{\datecreation}{2025-09-29}
+\renewcommand{\daterevision}{2025-09-29}
+
+\begin{document}
+
+% First page with title block
+\titleblock
+
+% ==== DOCUMENT CONTENT ====
+\section*{Process Overview}
+
+\processdescription \\
+
+\subsection*{Key Specifications}
+\begin{itemize}
+    \item Substrate: p-type silicon, <100>, with thermal oxide isolation
+    \item Insulating layer: \qty{200}{\nano\meter} thermal SiO\textsubscript{2}
+    \item Adhesion layer: \qty{10}{\nano\meter} Ti
+    \item Sensing layer: \qty{100}{\nano\meter} Pt, patterned in meander geometry
+    \item Nominal resistance: \qty{100}{\ohm} at \qty{0}{\degreeCelsius} (Pt100)
+\end{itemize}
+
+\subsection*{Critical Safety}
+\begin{itemize}
+    \item \textbf{HF handling:} Apron + gloves, face shield, no lone working, no glass beakers!
+    \item \textbf{Solvents:} Acetone, IPA, resist remover: Use fume hood and PPE.
+    \item \textbf{Sputter/evaporation:} Pt/Ti target change requires care; follow target handling SOP
+    \item \textbf{Anneal:} Use thermal gloves for $> \qty{300}{\celsius}$ operations
+\end{itemize}
+
+% === MATERIAL SPECIFICATIONS ===
+\section{Starting Material}
+\begin{tblr}{
+    colspec = {lccc},
+    row{1} = {font=\bfseries},
+    row{2} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Substrate & Specification & Thickness & Box Name & Qty \\
+\midrule
+Silicon & p-type <100>, 6", \qtyrange{1}{10}{\ohm\centi\meter} & \qty{500}{\micro\meter} $\pm$ \qty{20}{\micro\meter} & SP632 & 5 \\
+\bottomrule
+\end{tblr}
+
+% === LAYER SPECIFICATIONS ===
+\section{Critical Layers}
+\begin{tblr}{
+    colspec = {lcc},
+    row{1} = {font=\bfseries},
+    row{2-5} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Layer & Material & Thickness \\
+\midrule
+Insulating oxide & Thermal SiO\textsubscript{2} & \qty{200}{\nano\meter} \\
+Adhesion layer & Ti & \qty{10}{\nano\meter} \\
+Resistive element & Pt & \qty{100}{\nano\meter} \\
+Optional pad metallization & Ni/Au & \qty{20}{\nano\meter} Ni + \qty{200}{\nano\meter} Au \\
+\bottomrule
+\end{tblr}
+
+% === PROCESS FLOW ===
+\section{Core Process Flow}
+\begin{longtblr}[
+    caption = {Pt100 RTD Process Flow},
+    label = {tab:pt100_flow},
+  ]{
+    colspec = {c X[2.5] X[2] X[3] X[2.5]},
+    rowhead = 1,
+    row{1} = {font=\bfseries},
+    row{2-Z} = {abovesep=3pt, belowsep=3pt},
+    row{even[3-Z]} = {bg=gray!5},
+    row{odd[3-Z]} = {bg=white}
+  }
+  \toprule
+  Step & Process & Equipment & Parameters & Comment \\
+  \midrule
+  \textbf{\Large1} & \SetCell[c=4]{c, font=\bfseries\Large} Wafer Prep and Oxide & & & \\
+  1.1 & Incoming inspection & 4-point probe + thickness tool & Measure resistivity, bow, thickness & Verify starting wafer specs. \\
+  1.2 & Pre-oxidation clean & RCA bench & Standard RCA clean & Required prior to oxidation. \\
+  1.3 & Thermal oxide growth & Furnace: Dry/Wet oxidation & \SetCell{m} Target: \qty{200}{\nano\meter} \newline Recipe: DRY1100 & Provides electrical isolation. \\
+  1.4 & Inspection & Ellipsometer & & Verify oxide thickness. \\
+  \midrule
+  \textbf{\Large2} & \SetCell[c=4]{c, font=\bfseries\Large} Lithography & & & \\
+  2.1 & Resist coat & Spin Coater: Gamma UV & \SetCell{m}{Resist: AZ 5214E \newline Spin: \qty{4000}{\mathrm{rpm}}, \qty{30}{\second} \newline Target thickness: \qty{1.4}{\micro\meter} \newline Softbake: \qty{110}{\degreeCelsius}, \qty{60}{\second}} & Provides base resist film. \\
+  2.2 & Pattern exposure & Maskless Aligner: MLA2 & \SetCell{m}{Mask: RTD layout \newline Dose: \qtyrange[per-mode=symbol]{60}{80}{\milli\joule\per\centi\meter\squared} \newline Wavelength: 375 nm} & Expose regions that should remain after lift-off. \\
+  2.3 & Reversal bake & Hotplate & \SetCell{m}{\qty{120}{\degreeCelsius}, \qty{120}{\second}} & Crosslinks initially exposed resist (becomes insoluble). \\
+  2.4 & Flood exposure & Maskless Aligner: MLA2 & \SetCell{m}{No mask, blanket exposure \newline Dose: \qty{150}{\milli\joule\per\centi\meter\squared}} & Reverses tone: unexposed areas become soluble. \\
+  2.5 & Develop & Developer bench & \SetCell{m}{Developer: AZ 726 MIF \newline Time: \qty{60}{\second}, gentle agitation \newline Rinse: DI water, \qty{30}{\second}} & Creates undercut profile for lift-off. \\
+  \midrule
+  \textbf{\Large3} & \SetCell[c=4]{c, font=\bfseries\Large} Metal Deposition & & & \\
+  3.1 & Chamber prep & Temescal e-beam evaporator & Base pressure $\le \qty{1e-6}{\milli\bar}$ & Lift-off friendly. \\
+  3.2 & Ti deposition & Temescal & \qty{10}{\nano\meter} Ti @ \qtyrange[per-mode=symbol]{0.5}{1}{\angstrom\per\second} & Adhesion layer. \\
+  3.3 & Pt deposition & Temescal & \qty{100}{\nano\meter} Pt @ \qtyrange[per-mode=symbol]{1}{2}{\angstrom\per\second} & Resistive layer. \\
+  \midrule
+  \textbf{\Large4} & \SetCell[c=4]{c, font=\bfseries\Large} Lift-off & & & \\
+  4.1 & Lift-off & Solvent bath (acetone) & Soak + ultrasonic assist if needed & Leaves Ti/Pt meander. \\
+  4.2 & Rinse/Dry & IPA + N2 gun & & Inspect for clean edges, no flakes. \\
+  \midrule
+  \textbf{\Large5} & \SetCell[c=4]{c, font=\bfseries\Large} Post-processing & & & \\
+  5.1 & Optional anneal & Furnace: N$_2$ ambient & \qty{400}{\celsius}, \qty{1}{\hour} & Stabilizes Pt resistance. \\
+  5.2 & Optional pad metallization & Lithography + evaporator & Ni/Au stack & Improves bondability. \\
+  5.3 & Final inspection & Optical microscope + 4-point probe & Measure sheet R, continuity & Target $R = \qty{100}{\ohm}$ at $\qty{0}{\degreeCelsius}$. \\
+  \bottomrule
+\end{longtblr}
+
+% === CRITICAL CHECKS ===
+\section{Critical Checks}
+\begin{tblr}{
+    colspec = {lX[3]},
+    row{1} = {font=\bfseries},
+    row{2-Z} = {abovesep=3pt,belowsep=3pt}
+}
+\toprule
+Step & QC Verification \\
+\midrule
+1.3 & Oxide thickness: \qty{300}{\nano\meter} $\pm$ \qty{10}{\nano\meter} (ellipsometer) \\
+2.2 & Lithography: line/space $\pm$ \qty{1}{\micro\meter} (optical inspection) \\
+3.3 & Pt thickness: \qty{100}{\nano\meter} $\pm$ \qty{5}{\nano\meter} (profilometer) \\
+4.1 & Lift-off complete, no bridging (microscope) \\
+5.1 & Sheet resistance stable within 1\% after anneal (4-point probe) \\
+\bottomrule
+\end{tblr}
+
+% === PROCESS FLOW DIAGRAM ===
+\newpage
+\section{Process Flow Diagram}
+\begin{figure}[h!]
+    \centering
+    %\input{figures/pt100_flow.tikz}
+    \caption{Process flow diagram for Pt100 RTD fabrication.}
+\end{figure}
+
+% === FIGURES ===
+\newpage
+\section{Required Figures}
+\FloatBarrier
+\begin{longtblr}
+    [
+        caption = {Cross-sectional illustrations of key process steps in the Pt100 RTD fabrication flow.},
+        label = {tab:pt100_figures},
+    ]{
+    colspec = {c c X[3]},
+    row{1} = {font=\bfseries},
+    row{2-Z} = {abovesep=3pt, belowsep=3pt},
+    hlines,
+    vlines,
+}
+ID & Step & Description \\
+
+1 & 1.3 &
+\begin{minipage}{\linewidth}
+    \centering
+    %\resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/pt100_steps/pt100_step_1-3.pdf}}\\[2pt]
+    Thermal oxide isolation
+\end{minipage} \\
+
+2 & 2.2 &
+\begin{minipage}{\linewidth}
+    \centering
+    %\resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/pt100_steps/pt100_step_2-2.pdf}}\\[2pt]
+    Lithography defines meander
+\end{minipage} \\
+
+3 & 3.3 &
+\begin{minipage}{\linewidth}
+    \centering
+    %\resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/pt100_steps/pt100_step_3-3.pdf}}\\[2pt]
+    Ti/Pt deposition
+\end{minipage} \\
+
+4 & 4.1 &
+\begin{minipage}{\linewidth}
+    \centering
+    %\resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/pt100_steps/pt100_step_4-1.pdf}}\\[2pt]
+    Lift-off completed
+\end{minipage} \\
+
+5 & 5.1 &
+\begin{minipage}{\linewidth}
+    \centering
+    %\resizebox{!}{3.5cm}{\includegraphics{figures/process_steps/pt100_steps/pt100_step_5-1.pdf}}\\[2pt]
+    Optional anneal / pad metallization
+\end{minipage} \\
+
+\end{longtblr}
+
+\end{document}
