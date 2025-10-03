@@ -11,7 +11,7 @@
 \renewcommand{\labmanagergroup}{Not applicable}
 \renewcommand{\batchname}{TBD}
 \renewcommand{\datecreation}{2025-09-29}
-\renewcommand{\daterevision}{2025-09-29}
+\renewcommand{\daterevision}{2025-10-03}
 
 \begin{document}
 
@@ -26,7 +26,7 @@
 \subsection*{Key Specifications}
 \begin{itemize}
     \item Substrate: p-type silicon, <100>, with thermal oxide isolation
-    \item Insulating layer: \qty{200}{\nano\meter} thermal SiO\textsubscript{2}
+    \item Insulating layer: \qty{500}{\nano\meter} thermal SiO\textsubscript{2}
     \item Adhesion layer: \qty{10}{\nano\meter} Ti
     \item Sensing layer: \qty{100}{\nano\meter} Pt, patterned in meander geometry
     \item Nominal resistance: \qty{100}{\ohm} at \qty{0}{\degreeCelsius} (Pt100)
@@ -50,7 +50,7 @@
 \toprule
 Substrate & Specification & Thickness & Box Name & Qty \\
 \midrule
-Silicon & p-type <100>, 6", \qtyrange{1}{10}{\ohm\centi\meter} & \qty{500}{\micro\meter} $\pm$ \qty{20}{\micro\meter} & SP632 & 5 \\
+Silicon & n-type <100>, 4", \qty{0.025}{\ohm\centi\meter} & \qty{525}{\micro\meter} $\pm$ \qty{20}{\micro\meter} & SN608 & 5 \\
 \bottomrule
 \end{tblr}
 
@@ -64,7 +64,7 @@ Silicon & p-type <100>, 6", \qtyrange{1}{10}{\ohm\centi\meter} & \qty{500}{\micr
 \toprule
 Layer & Material & Thickness \\
 \midrule
-Insulating oxide & Thermal SiO\textsubscript{2} & \qty{200}{\nano\meter} \\
+Insulating oxide & Thermal SiO\textsubscript{2} & \qty{500}{\nano\meter} \\
 Adhesion layer & Ti & \qty{10}{\nano\meter} \\
 Resistive element & Pt & \qty{100}{\nano\meter} \\
 Optional pad metallization & Ni/Au & \qty{20}{\nano\meter} Ni + \qty{200}{\nano\meter} Au \\
@@ -90,7 +90,7 @@ Optional pad metallization & Ni/Au & \qty{20}{\nano\meter} Ni + \qty{200}{\nano\
   \textbf{\Large1} & \SetCell[c=4]{c, font=\bfseries\Large} Wafer Prep and Oxide & & & \\
   1.1 & Incoming inspection & 4-point probe + thickness tool & Measure resistivity, bow, thickness & Verify starting wafer specs. \\
   1.2 & Pre-oxidation clean & RCA bench & Standard RCA clean & Required prior to oxidation. \\
-  1.3 & Thermal oxide growth & Furnace: E1 oxidation & \SetCell{m} Target: \qty{200}{\nano\meter} \newline Recipe: DRY1100 & Provides electrical isolation. \\
+  1.3 & Thermal oxide growth & Furnace: E1 oxidation & \SetCell{m} Target: \qty{500}{\nano\meter} \newline Recipe: WET1100 \newline Oxidation time: \qty{50}{\minute} \newline Anneal time: \qty{20}{\minute} & Provides electrical isolation. \\
   1.4 & Inspection & Ellipsometer & & Verify oxide thickness. \\
   \midrule
   \textbf{\Large2} & \SetCell[c=4]{c, font=\bfseries\Large} Lithography & & & \\
