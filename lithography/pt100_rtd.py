@@ -1,4 +1,3 @@
-# KLayout Python macro — Pt100 RTD, rectangular sense traces + align marks
 import pya
 import os
 
@@ -113,10 +112,9 @@ add_path(L_METAL, [
     (R_edge, R_FORCE[1] + pad_size/2.0)
 ], route_w)
 
-pad_gap = 0.0        # µm space between pad and trace
-L_edge = L_SENSE[0] + pad_size + pad_gap
+L_edge = L_SENSE[0] + pad_size
 R_edge = R_SENSE[0]  - pad_gap
-L_edge = L_SENSE[0] + pad_size + pad_gap
+L_edge = L_SENSE[0] + pad_size
 R_edge = R_SENSE[0]  - pad_gap
 
 ySm = L_SENSE[1] + pad_size/2.0 + y_offset
