@@ -13,9 +13,10 @@ OUTPUT_PATH = os.path.join(script_dir, "pt100_rtd.gds")
 
 # ---- Setup ----
 ly = pya.Layout(); ly.dbu = 0.001
+
 top = ly.create_cell("PT100_RTD")
 L_METAL = ly.layer(1,0); L_DICE = ly.layer(10,0); L_ALIGN = ly.layer(20,0); L_TEXT = ly.layer(100,0)
-um = lambda x: int(round(x/(ly.dbu*1000.0)))
+def um(x_um): return int(round(x_um / ly.dbu))
 def box(x,y,w,h): return pya.Box(um(x),um(y),um(x+w),um(y+h))
 def rect(layer,x,y,w,h): top.shapes(layer).insert(box(x,y,w,h))
 def cross(layer,x,y,arm=100.0,w=10.0):
@@ -113,9 +114,9 @@ add_path(L_METAL, [
 ], route_w)
 
 L_edge = L_SENSE[0] + pad_size
-R_edge = R_SENSE[0]  - pad_gap
+R_edge = R_SENSE[0]
 L_edge = L_SENSE[0] + pad_size
-R_edge = R_SENSE[0]  - pad_gap
+R_edge = R_SENSE[0]
 
 ySm = L_SENSE[1] + pad_size/2.0 + y_offset
 ySp = R_SENSE[1] + pad_size/2.0 - y_offset
