@@ -5,7 +5,7 @@ import os
 die_w = 1500.0; die_h = 1500.0
 w_line = 22.0; gap = 15.0; pitch = w_line + gap
 runs = 7; run_len = 178.0
-route_w = 20.0; pad_size = 150.0; pad_clear = 80.0
+route_w = 22.0; pad_size = 150.0; pad_clear = 80.0
 keepout = 35.0
 label_h = 120.0
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -33,6 +33,20 @@ rect(L_DICE,0,0,5,die_h); rect(L_DICE,die_w-5,0,5,die_h)
 for x,y in [(150,150),(die_w-150,150),(150,die_h-150),(die_w-150,die_h-150)]:
     cross(L_ALIGN,x,y)
 
+# ---- Orientation chamfer moved to UPPER-LEFT corner (Pin 1 = S-)
+chamfer = 300.0   # µm
+
+# Upper-left triangle points: (0,die_h), (chamfer,die_h), (0,die_h-chamfer)
+pts = [
+    pya.Point(um(0),         um(die_h)),
+    pya.Point(um(chamfer),   um(die_h)),
+    pya.Point(um(0),         um(die_h - chamfer))
+]
+top.shapes(L_DICE).insert(pya.Polygon(pts))
+
+# small human-readable "1" next to chamfer on text layer
+add_text(L_TEXT, "1", chamfer - 60, die_h - chamfer + 80.0, 120.0)
+
 # ---- Meander (centered) ----
 cx, cy = die_w/2.0, die_h/2.0
 me_w = run_len
@@ -53,22 +67,25 @@ add_path(L_METAL, pts, w_line)
 start = (left,  y0)                    # − node
 end   = (right, y0 + (runs-1)*pitch)   # + node
 
-# ---- Symmetric pad rows (sense near node) ----
+# ---- Symmetric pad rows (force near node) ----
 padL_x = left  - pad_clear - pad_size
 padR_x = right + pad_clear
-pad_y_low  = cy - pad_size - 40.0      # lower row
-pad_y_high = cy + 40.0                 # upper row
+pad_y_low  = cy - pad_size - 40.0 + y_offset      # lower row
+pad_y_high = cy + 40.0 - y_offset               # upper row
 
-# Left: lower=S−, upper=F− ; Right: lower=F+, upper=S+
+# NOTE: swapped assignment so left = Fm (lower), Sm (upper)
+#       and right = Sp (lower), Fp (upper)
 for (px,py) in [(padL_x,pad_y_low),(padL_x,pad_y_high),
                 (padR_x,pad_y_low),(padR_x,pad_y_high)]:
     rect(L_METAL, px, py, pad_size, pad_size)
 
-L_SENSE = (padL_x, pad_y_low ); L_FORCE = (padL_x, pad_y_high)
-R_FORCE = (padR_x, pad_y_low ); R_SENSE = (padR_x, pad_y_high)
+L_FORCE = (padL_x, pad_y_low )   # Fm (lower-left)
+L_SENSE = (padL_x, pad_y_high)   # Sm (upper-left)
+R_SENSE = (padR_x, pad_y_low )   # Sp (lower-right)
+R_FORCE = (padR_x, pad_y_high)   # Fp (upper-right)
 
 # Pad-edge Xs
-L_edge = L_SENSE[0] + pad_size         # right edge of left pads
+L_edge = L_SENSE[0] + pad_size         # right edge of left pads (same calc as before)
 R_edge = R_SENSE[0]                    # left edge of right pads
 
 # Keepout rails outside meander
@@ -82,8 +99,8 @@ min_clear        = 10.0    # µm  -> safety gap to meander edge
 y_offset         = 4.0
 
 # Pad-center Y for each sense pad
-ySm = L_SENSE[1] + pad_size/2.0   # S− center Y
-ySp = R_SENSE[1] + pad_size/2.0   # S+ center Y
+ySm = L_SENSE[1] + pad_size/2.0  # Sm center Y (upper-left)
+ySp = R_SENSE[1] + pad_size/2.0  # Sp center Y (lower-right)
 
 # Max allowed sense lengths so the vertical force rails stay outside the meander
 max_len_left  = max(0.0, (left  - min_clear) - L_edge)  # rail_L must be < left - min_clear
@@ -118,20 +135,39 @@ R_edge = R_SENSE[0]
 L_edge = L_SENSE[0] + pad_size
 R_edge = R_SENSE[0]
 
-ySm = L_SENSE[1] + pad_size/2.0 + y_offset
-ySp = R_SENSE[1] + pad_size/2.0 - y_offset
+ySm = L_SENSE[1] + pad_size/2.0 - y_offset
+ySp = R_SENSE[1] + pad_size/2.0 + y_offset
 
 rail_L = L_edge + sense_len_target
 rail_R = R_edge - sense_len_target
 
-rect(L_METAL, L_edge, ySm - route_w/2.0, sense_len_target, route_w)
-rect(L_METAL, R_edge - sense_len_target, ySp - route_w/2.0, sense_len_target, route_w)
+#rect(L_METAL, L_edge, ySm - route_w/2.0, sense_len_target, route_w)
+#rect(L_METAL, R_edge - sense_len_target, ySp - route_w/2.0, sense_len_target, route_w)
 
-# ---- (Optional) print the actual rectangle corners in mm for verification ----
-def um_to_mm(v): return v/1000.0
-def rpt(name, x1, y1, x2, y2):
-    print(f"{name} LL=({um_to_mm(x1):.5f}, {um_to_mm(y1):.5f})  "
-          f"UR=({um_to_mm(x2):.5f}, {um_to_mm(y2):.5f})")
+sense_padL_x = L_SENSE[0] + pad_size/2.0   # center X of left sense pad (Sm)
+sense_padR_x = R_SENSE[0] + pad_size/2.0   # center X of right sense pad (Sp)
+
+# left pad right-edge (outside pad)
+left_pad_edge_x = L_SENSE[0] + pad_size
+
+add_path(L_METAL, [
+    (start[0], start[1]),       # meander start
+    (rail_L,   start[1]),       # horizontal out to left rail (outside pad)
+    (rail_L,   ySm),            # vertical up to sense Y
+    (left_pad_edge_x, ySm),     # horizontal to just outside pad edge
+    (sense_padL_x, ySm)         # short horizontal into pad center
+], route_w)
+
+# right pad left-edge (outside pad)
+right_pad_edge_x = R_SENSE[0]
+
+add_path(L_METAL, [
+    (end[0],   end[1]),         # meander end
+    (rail_R,   end[1]),         # horizontal out to right rail
+    (rail_R,   ySp),            # vertical to sense Y
+    (right_pad_edge_x, ySp),    # horizontal to just outside right pad edge
+    (sense_padR_x, ySp)         # short horizontal into pad center
+], route_w)
 
 # ---- Labels ----
 add_text(L_TEXT, "Sm", L_SENSE[0]+pad_size/2, L_SENSE[1]+pad_size/2, label_h)
