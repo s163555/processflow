@@ -41,9 +41,10 @@ processflow/
 │ │ └── moscap_steps.py # Script that generates PDF/PNG cross-section illustrations per process step
 │ └── moscap_mwe_flow.tikz # TikZ diagram of the full process flow
 ├── .gitignore # Revision control template
-├── moscap_mwe.tex # Minimal MOS Capacitor Process
+├── moscap_mwe.tex # MOSCAP process flow
 ├── template.tex # Document template with styling and macros
-└── README.md # This file
+├── README.md # This file
+└── rtd.tex # RTD sensor process flow
 ```
 
 ---
