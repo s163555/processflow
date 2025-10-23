@@ -14,7 +14,7 @@ L_vert_total = (N-1) * pitch
 L_ends = 80e-6;
 L_eff = L_hoz_total + L_vert_total + L_ends
 
-R_ideal = rho * L_eff / w * t
+R_ideal = (rho * L_eff) / (w * t)
 Rs_real = Rs * 1.5 % Assuming 50% greater sheet resistance than ideal
 N_squares_real = L_eff / w
 R_eff = Rs_real * N_squares_real
