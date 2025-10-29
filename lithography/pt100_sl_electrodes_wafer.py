@@ -3,7 +3,7 @@ import pya, os, math
 SRC_GDS = os.path.join(os.path.dirname(__file__), "rtd_sulfilogger.gds")
 OUT_GDS = os.path.join(os.path.dirname(__file__), "rtd_sulfilogger_wafer.gds")
 
-DIE_W_UM, DIE_H_UM = 7760.0, 4550.0
+DIE_W_UM, DIE_H_UM = 7800.0, 4550.0
 WAFER_DIA, EDGE_CLEAR = 100000.0, 0.0   # 4" wafer
 
 ly = pya.Layout()
