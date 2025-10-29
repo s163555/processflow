@@ -1,20 +1,20 @@
 rho = 1.06e-7;
 t = 100e-9;
 Rs = rho / t
-w = 22e-6;
+w = 60e-6;
 Rtarget = 100;
 N_squares = Rtarget / Rs
-clearance = 15e-6;
-pitch = 37e-6;
-N = 7;
-L_hoz = 178e-6;
+clearance = 35e-6;
+pitch = w + clearance;
+N = 8;
+L_hoz = 550e-6;
 L_hoz_total = N * L_hoz
 L_vert = pitch;
 L_vert_total = (N-1) * pitch
-L_ends = 80e-6;
+L_ends = 0e-6;
 L_eff = L_hoz_total + L_vert_total + L_ends
 
 R_ideal = (rho * L_eff) / (w * t)
-Rs_real = Rs * 1.5 % Assuming 50% greater sheet resistance than ideal
+Rs_real = Rs * 1.3 % Assuming 30% greater sheet resistance than ideal
 N_squares_real = L_eff / w
 R_eff = Rs_real * N_squares_real
