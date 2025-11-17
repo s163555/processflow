@@ -104,32 +104,26 @@ Back contact & Al & \qty{400}{\nano\meter} \\
   4.1 & Resist coat & Spin Coater: Gamma UV & Resist: 5214E, \qty{1.5}{\micro\meter}; bake \qty{2}{\minute} @ \qty{110}{\degreeCelsius} & Protect frontside oxide and poly-Si. \\
   4.2 & Poly-Si wet etch & Wet bench & \qty{9}{\minute} in Poly-Etch solution & Etch blanket poly-Si. Must verify time if new solution. \\
   4.3 & Backside oxide dip & Wet bench (BHF) & \qty{7}{\minute} (may be shorter) & Removes exposed oxide if needed. \\
-  4.4 & Resist strip & Wet bench & \qtyrange{15}{20}{\minute} & Ensure full resist removal before inspection. \\
   \midrule
   \textbf{\Large5} & \SetCell[c=4]{c, font=\bfseries\Large} Backside oxide etch & & & \\
   5.1 & Backside oxide etch & Wet bench 04: BHF 2 & \qty{40}{\second} (etch rate \qtyrange[per-mode=symbol]{75}{80}{\nano\meter\per\minute}) & Removes backside oxide (\qty{35}{\nano\meter}) prior to metal deposition. \\
+  5.2 & Resist strip & Wet bench & \qtyrange{15}{20}{\minute} & Ensure full resist removal before inspection. \\
   \midrule
   \textbf{\Large6} & \SetCell[c=4]{c, font=\bfseries\Large} Frontside Poly-Si etch (wet) & & & \\
   6.1 & Lithography: Coat & Spin Coater: Gamma UV & \SetCell{m} Sequence 1611: \qty{1.5}{\micro\meter} HMDS resist. \newline Spin: \qty{30}{\second} @ $4600~\mathrm{rpm}$. \newline Softbake: \qty{90}{\second} @ \qty{90}{\degreeCelsius}. & \\
-  6.2 & Lithography: Expose & Aligner: MLA2 & \SetCell{m} Mask: gate\_poly. \newline Laser: \qty{375}{\nano\meter}. \newline Dose: \qty[per-mode=symbol]{325}{\milli\joule\per\centi\meter\squared}. \newline Defocus: 2. \newline Mode: Quality. & Invert polarity. \\
+  6.2 & Lithography: Expose & Aligner: MLA2 & \SetCell{m} Mask: MOSCAP\_v1 \newline Laser: \qty{375}{\nano\meter}. \newline Dose: \qty[per-mode=symbol]{325}{\milli\joule\per\centi\meter\squared}. \newline Defocus: 2. \newline Mode: Quality. & Check whether invert polarity. \\
   6.3 & Lithography: Develop & Developer: TMAH UV-lithography & Sequence 3001: PEB \qty{60}{\second} @ \qty{100}{\degreeCelsius}, SP \qty{60}{\second}. & \\
   6.4 & Inspection & Optical microscope & Check gate pattern and alignment marks & \\
   6.5 & Hard-bake resist & Hotplate & Bake @ \qty{110}{\degreeCelsius} for \qty{2}{\minute} & Improves resist adhesion for wet etch. \\
-  6.6 & Poly-Si wet etch & Wet bench (Poly-Etch) & \qtyrange{7}{9}{\minute} & Use if DRIE unavailable; verify uniformity. \\
+  6.6 & Poly-Si wet etch & Wet bench (Poly-Etch) & \qtyrange{6}{9}{\minute} \newline Visual inspections every \qty{30}{\second} & Use if DRIE unavailable; verify uniformity. \\
   6.7 & Inspection & DekTak & Check step height & Verify poly-Si is etched through. \\
-  6.8 & Resist strip & Wet bench 06 & Strip time: \qty{10}{\minute} & \\
+  6.8 & Resist strip & Wet bench 06 & Strip time: \qty{15}{\minute} & \\
   6.9 & Final gate inspection & DekTak & Measure heights and widths & Verify critical dimensions (CD). \\
   \midrule
   \textbf{\Large7} & \SetCell[c=4]{c, font=\bfseries\Large} Backside electrode & & & \\
-  7.1 & Lithography: Coat & Spin Coater: Gamma UV & \SetCell{m} Sequence 2411: \qty{1.5}{\micro\meter} nLOF 2020 resist. \newline Spin: $6000~\mathrm{rpm}$. \newline Softbake: \qty{120}{\second} @ \qty{110}{\degreeCelsius}. & \\
-  7.2 & Lithography: Expose & Aligner: MLA2 & \SetCell{m}{ Mask: gate\_electrode. \newline Laser: \qty{375}{\nano\meter}. \newline Dose: \qty[per-mode=symbol]{450}{\milli\joule\per\centi\meter\squared}. \newline Defocus: 0. \newline Mode: Quality. } & TEST exposure. \\
-  7.3 & Lithography: Develop & Developer: TMAH UV-lithography & Sequence 3001: PEB \qty{60}{\second} @ \qty{110}{\degreeCelsius}, SP \qty{60}{\second} & \\
-  7.4 & Inspection & Optical microscope & Check backside pattern and alignment marks & \\
-  7.5 & Metal deposition (Ti) & Temescal & Ti: \qty{100}{\nano\meter} & Serves as adhesion/barrier layer. \\
-  7.6 & Metal deposition (Al) & Temescal & Al: \qty{400}{\nano\meter} & Main backside contact metal. \\
-  7.7 & Lift-off & Wet bench 07 & & \\
-  7.8 & Inspection: Post-lift-off & Optical microscope & & Check pattern and alignment marks. \\
-  7.9 & Contact anneal & C4 Al-anneal & \SetCell{m} Standard recipe \newline \qty{20}{\minute} & Stabilizes the Ti/Al Si contact. Avoid $\geq \qty{450}{\degreeCelsius}$ (Al spiking). \\
+  7.1 & Metal deposition (Ti) & Temescal & Ti: \qty{100}{\nano\meter} & Serves as adhesion/barrier layer. \\
+  7.2 & Metal deposition (Al) & Temescal & Al: \qty{400}{\nano\meter} & Main backside contact metal. \\
+  7.3 & Contact anneal & C4 Al-anneal & \SetCell{m} Standard recipe \newline \qty{20}{\minute} \newline \qty{425}{\degreeCelsius} & Stabilizes the Ti/Al Si contact. Avoid $\geq \qty{450}{\degreeCelsius}$ (Al spiking). \\
   \bottomrule
 \end{longtblr}
 
@@ -156,7 +150,7 @@ Step & QC Verification \\
 \section{Process Flow Diagram}
 \begin{figure}[h!]
     \centering
-    \input{figures/moscap_mwe_flow.tikz}
+    \resizebox{!}{0.9\textwidth}{\input{figures/moscap_mwe_flow.tikz}}
     \caption{Process flow diagram for MOS capacitor fabrication.}
 \end{figure}
 
