@@ -97,7 +97,7 @@ Optional pad metallization & Ni/Au & \qty{20}{\nano\meter} Ni + \qty{200}{\nano\
   2.1 & Resist coat & Spin Coater: Gamma UV & \SetCell{m}{Recipe: 3421 DCH 100mm 5214E \qty{2.2}{\micro\meter} HMDS \newline Softbake: \qty{100}{\degreeCelsius}, \qty{60}{\second}} & \\
   2.2 & Pattern exposure & Maskless Aligner: MLA2 & \SetCell{m}{Mask: rtd\_sulfilogger\_wafer \newline Dose: \qty[per-mode=symbol]{50}{\milli\joule\per\centi\meter\squared} \newline Wavelength: 375 nm} & Expose regions that should remain after lift-off. \\
   2.3 & Image reversal bake & TMAH UV-lithography & \SetCell{m}{Recipe: 2001 DCH PEB \qty{110}{\degreeCelsius} \qty{60}{\second}} & Crosslinks initially exposed resist (becomes insoluble). \\
-  2.4 & Flood exposure & Maskless Aligner: MLA2 & \SetCell{m}{No mask, blanket exposure \newline Dose: \qty[per-mode=symbol]{500}{\milli\joule\per\centi\meter\squared} \newline Exposure time: \qty{45}{\second} at \qty[per-mode=symbol]{11}{\milli\watt\per\centi\meter\squared}} & Reverses tone: unexposed areas become soluble. \\
+  2.4 & Flood exposure & Maskless Aligner: MA6-2 & \SetCell{m}{No mask, blanket exposure \newline Dose: \qty[per-mode=symbol]{500}{\milli\joule\per\centi\meter\squared} \newline Exposure time: \qty{30}{\second} at \qty[per-mode=symbol]{11}{\milli\watt\per\centi\meter\squared}} & Reverses tone: unexposed areas become soluble. \\
   2.5 & Develop & TMAH UV-lithography & \SetCell{m}{Recipe: 1002 DCH 100mm SP \qty{60}{\second} \newline Developer: AZ 726 MIF \newline single puddle, \qty{60}{\second} \newline Rinse: DI water, \qty{30}{\second}} & Creates undercut profile for lift-off. \\
   \midrule
   \textbf{\Large3} & \SetCell[c=4]{c, font=\bfseries\Large} Metal Deposition & & & \\
