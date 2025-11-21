@@ -9,6 +9,24 @@ WAFER_DIA, EDGE_CLEAR = 100000.0, 0.0   # 4" wafer
 ly = pya.Layout()
 ly.read(SRC_GDS)
 die = ly.top_cell()
+
+def convert_paths_to_polygons(layout, cell):
+    for layer_index in layout.layer_indexes():
+        shps = cell.shapes(layer_index)
+        to_add = []
+        to_remove = []
+        for s in shps.each():
+            if s.is_path():
+                poly = s.path.polygon()
+                to_add.append(poly)
+                to_remove.append(s)
+        for s in to_remove:
+            shps.erase(s)
+        for poly in to_add:
+            shps.insert(poly)
+
+convert_paths_to_polygons(ly, die)
+
 wafer_top = ly.create_cell("WAFER_100MM")
 
 L_OUT = ly.layer(90, 0)
