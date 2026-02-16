@@ -2,7 +2,7 @@ import pya
 import os
 
 die_w = 1500.0; die_h = 1500.0
-w_line = 60.0; gap = 35.0; pitch = w_line + gap
+w_line = 60.0; gap = 30; pitch = w_line + gap
 runs = 8; run_len = 550.0
 script_dir = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_PATH = os.path.join(script_dir, "pt100_rtd.gds")
@@ -35,7 +35,7 @@ for i in range(runs):
 
     if i < runs-1: y += pitch
 
-extension = w_line / 2.0 + 60
+extension = w_line / 2.0 + 80
 
 pts[0] = (pts[0][0] - extension, pts[0][1])
 
