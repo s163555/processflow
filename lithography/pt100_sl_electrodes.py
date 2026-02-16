@@ -98,7 +98,7 @@ print(f"Generating Wide traces...")
 for pts in traces_wide:
     path_pts = [um_to_point(p) for p in pts]
     path = pya.Path(path_pts, int(round(w_wide * scale)))
-    elec_top.shapes(l_trace).insert(path)
+    elec_top.shapes(l_trace).insert(path.polygon())
 
 print(f"Generating Horizontal Tapers...")
 for p_start, p_end in taper_defs:
